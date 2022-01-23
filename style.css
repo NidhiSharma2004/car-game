@@ -16,10 +16,11 @@
 .gameroad{
     position: absolute;
     width: 500px;
-    background-color: rgb(70, 64, 64);
+    background-color: rgb(22, 25, 34);
     height: 100vh;
     left: 35%;
     display: none;
+    overflow: hidden;
 }
 .hide{
     display: none;
@@ -29,7 +30,7 @@
 }
 .lines{
     width: 10px;
-    height: 60px;
+    height: 96px;
     background-color: white;
     position: absolute;
     left: 47%;
