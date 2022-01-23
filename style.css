@@ -27,3 +27,10 @@
 .show{
     display: block; 
 }
+.lines{
+    width: 10px;
+    height: 60px;
+    background-color: white;
+    position: absolute;
+    left: 47%;
+}
