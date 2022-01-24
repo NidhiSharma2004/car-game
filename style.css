@@ -36,14 +36,21 @@
     left: 47%;
 }
 .car, .enemyCars{
-    width: 50px;
-    height: 80px;
-    background-color: red;
+    width: 84px;
+    height: 97px;
     position: absolute;
     bottom: 0%;
-    z-index: 2;
     left: 0%;
+    text-align: center;
+    z-index: 1;
+    
 }
-.enemyCars{
-    background-color: blue;
+.car {
+    background: url(images/car2.png);
+    background-size: 108px 102px;
+   
+}
+.enemyCars img{
+    width: 100px;
+    height: 130px;
 }
