@@ -1,12 +1,7 @@
 let gameroad = document.querySelector(".gameroad");
 let car = document.querySelector(".car")  
 let player = {speed:5}
-// let keys= {ArrowUp:"false",ArrowDown:"false",ArrowLeft:"false",ArrowRight:"false"}
-//keys
-// firstof all we have to know that ki user konsi ki press kr rha ho or konsi release kr rha hai 
-// we add 2 event lisetener for down the key and release the key
-// document.addEventListener("keydown",keyDown);
-// document.addEventListener("keyup",keyUp);
+
 // on click on startbtn show the road and hide start btn
 // and show the road
 // move the lines on road
@@ -34,6 +29,8 @@ for(x=0;x<6;x++){
 //main function
 function gameplay(){
     movelines();
+    moveCars(car); 
+    // gameOver();
     requestAnimationFrame(gameplay);
 }
 //move the lines
@@ -51,12 +48,15 @@ function movelines(){
     })
 }
 
-
+//keys
+// firstof all we have to know that ki user window pe konsi ki press kr rha ho or konsi release kr rha hai 
+// we add event lisetener for down the key and specify the that if particular key is pressed then what happen
+// keycode 38 for toparrow and it can find by console e .keycode
 window.addEventListener("keydown",function(e){
-    console.log(e.keyCode)
+    // console.log(e.keyCode)
     if(e.keyCode==38){
         let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-        console.log(carBottom)
+        // console.log(carBottom)
         if(carBottom<700){
             car.style.bottom = carBottom+ player.speed +"px"
         }
@@ -69,7 +69,7 @@ window.addEventListener("keydown",function(e){
     }
     if(e.keyCode==39){
         let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
-        console.log(carleft)
+        // console.log(carleft)
         if(carleft<450){
             car.style.left = carleft + player.speed +"px"
         }
@@ -81,7 +81,36 @@ window.addEventListener("keydown",function(e){
         }
     }
 })
+// enemy cars
+for(x=0;x<5;x++){
+    let div = document.createElement("div");
+    div.setAttribute("class","enemyCars");
+    div.y = x*150
+    div.style.top = div.y + "px";
+    gameroad.appendChild(div);
+}
+// move the enemyCars
+//same as line move yha pr hr baar alg alg postion ke liye math functon ke use krenge
+function moveCars(car){
+    let enemyCars = document.querySelectorAll(".enemyCars");
+    enemyCars.forEach(function(enemyCar){
+        // if(isCollide(car,enemyCar))
+        if(enemyCar.y>=825){
+           
+            enemyCar.y -= 890;
+            enemyCar.style.left = Math.ceil(Math.random()*3)*130+"px"
+        }
+        enemyCar.y+= player.speed
+        enemyCar.style.top= enemyCar.y + "px";
+    })
+}
 
+// game over
+
+function isCollide(a,b){
+    aRect = a.getBoundingClientRect();
+    bRect = b.getBoundingClientRect();
+}
 window.requestAnimationFrame(gameplay);
 
 

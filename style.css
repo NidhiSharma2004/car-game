@@ -35,11 +35,15 @@
     position: absolute;
     left: 47%;
 }
-.car{
+.car, .enemyCars{
     width: 50px;
     height: 80px;
     background-color: red;
     position: absolute;
     bottom: 0%;
+    z-index: 2;
     left: 0%;
+}
+.enemyCars{
+    background-color: blue;
 }
