@@ -1,7 +1,12 @@
 let gameroad = document.querySelector(".gameroad");
+let car = document.querySelector(".car")  
 let player = {speed:5}
-let keys= {ArrowUp:"false",ArrowDown:"false",ArrowLeft:"false",ArrowRight:"false"}
-
+// let keys= {ArrowUp:"false",ArrowDown:"false",ArrowLeft:"false",ArrowRight:"false"}
+//keys
+// firstof all we have to know that ki user konsi ki press kr rha ho or konsi release kr rha hai 
+// we add 2 event lisetener for down the key and release the key
+// document.addEventListener("keydown",keyDown);
+// document.addEventListener("keyup",keyUp);
 // on click on startbtn show the road and hide start btn
 // and show the road
 // move the lines on road
@@ -12,7 +17,6 @@ function showroad(){
     gameroad.classList.toggle("show");
     let road = gameroad.getBoundingClientRect();
     console.log(road)
-    // setTimeout(gameplay,500)
 }
 // lines function
 // we want only 6 lines so we run loop for less than 7 times
@@ -46,20 +50,40 @@ function movelines(){
         line.style.top= line.y + "px"
     })
 }
-//keys
-// firstof all we have to know that ki user konsi ki press kr rha ho or konsi release kr rha hai 
-// we add 2 event lisetener for down the key and release the key
 
-document.addEventListener("keydown",keyDown);
-document.addEventListener("keyup",keyUp);
 
-//now define the function keydown and keyup
-function keyDown(e){
-    keys[e.key]=true
-}
-function keyUp(e){
-    keys[e.key]=false
-}
+window.addEventListener("keydown",function(e){
+    console.log(e.keyCode)
+    if(e.keyCode==38){
+        let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
+        console.log(carBottom)
+        if(carBottom<700){
+            car.style.bottom = carBottom+ player.speed +"px"
+        }
+    }
+    if(e.keyCode==40){
+        let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
+        if(carBottom>100){
+            car.style.bottom = carBottom - player.speed +"px"
+        }
+    }
+    if(e.keyCode==39){
+        let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
+        console.log(carleft)
+        if(carleft<450){
+            car.style.left = carleft + player.speed +"px"
+        }
+    }
+    if(e.keyCode==37){
+        let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
+        if(carleft>0){
+            car.style.left = carleft - player.speed +"px"
+        }
+    }
+})
+
 window.requestAnimationFrame(gameplay);
+
+
 
 
