@@ -1,7 +1,8 @@
 let gameroad = document.querySelector(".gameroad");
 let car = document.querySelector(".car")
 let player = { speed: 5 }
-
+let carposition = car.getBoundingClientRect();
+console.log(carposition.x)
 // on click on startbtn show the road and hide start btn
 // and show the road
 // move the lines on road
@@ -10,8 +11,6 @@ function showroad() {
     let startbtn = document.querySelector(".startbtn");
     startbtn.classList.toggle("hide");
     gameroad.classList.toggle("show");
-    let road = gameroad.getBoundingClientRect();
-    console.log(road)
 }
 // lines function
 // we want only 6 lines so we run loop for less than 7 times
@@ -38,6 +37,7 @@ function gameplay() {
 function isCollide(a,b){
     let aRect = a.getBoundingClientRect();
     let bRect = b.getBoundingClientRect();
+    console.log(aRect)
     return !((aRect.bottom < bRect.bottom))
 }
 //move the lines
@@ -67,13 +67,14 @@ window.addEventListener("keydown", function (e) {
         // console.log(carBottom)
         if (carBottom < 700) {
             car.style.bottom = carBottom + player.speed + "px"
-            console.log(`my car`,carBottom)
+            console.log(carposition.y)
         }
     }
     if (e.keyCode == 40) {
         let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
         if (carBottom > 100) {
             car.style.bottom = carBottom - player.speed + "px"
+            console.log(carposition.y)
         }
     }
     if (e.keyCode == 39) {
@@ -114,8 +115,7 @@ function moveCars(car) {
         if (enemyCar.y >= 825) {
             // if(isCollide(car,enemyCar))
             enemyCar.y -= 930;
-            enemyCar.style.left = Math.ceil(Math.random() * 130) + "px"
-            console.log( enemyCar.style.left = Math.floor(Math.random()*150) * 3 + "px")
+            enemyCar.style.left = Math.ceil(Math.random() * 130)*3 + "px";
         }
         enemyCar.y += player.speed
         enemyCar.style.top = enemyCar.y + "px";
