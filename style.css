@@ -88,7 +88,11 @@
     background: black;
     color: wheat;
     cursor: pointer;
+<<<<<<< HEAD
     z-index: 3;
+=======
+    z-index: 1;
+>>>>>>> 2a90ca58a34094eb1d673f0a66e3c52e913a72ea
     display: none;
 }
 .show{

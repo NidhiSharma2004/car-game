@@ -24,8 +24,33 @@ function iscollide(a, b) {
   );
 }
 
+<<<<<<< HEAD
 
 
+=======
+for (x = 0; x < 6; x++) {
+  let roadlines = document.createElement("roadlines");
+  roadlines.setAttribute("class", "lines");
+  roadlines.y = x * 150;
+  roadlines.style.top = roadlines.y + "px";
+  gameroad.appendChild(roadlines);
+}
+//move the lines
+//first select all the lines and run for each mthond on lines and added a value
+//and give the direction that is top and also give condition if y axis se ye 875px
+//chla jaye means height 875 ho jaye to isne se -900 kr do taki ye vapis top pr chla jaye
+function movelines() {
+  let lines = document.querySelectorAll(".lines");
+  lines.forEach(function (line) {
+    if (line.y >= 875) {
+      line.y -= 900;
+    }
+    line.y += player.speed;
+    line.style.top = line.y + "px";
+  });
+}
+
+>>>>>>> 2a90ca58a34094eb1d673f0a66e3c52e913a72ea
 let enemyCarArr = ["images/car1.png", "images/car3.png", "images/car4.png"];
 // enemy cars
 for (x = 0; x < enemyCarArr.length; x++) {
@@ -82,11 +107,18 @@ function moveCars(car) {
   let enemyCars = document.querySelectorAll(".enemyCars");
   enemyCars.forEach(function (enemyCar) {
     if (iscollide(car, enemyCar)) {
+<<<<<<< HEAD
       player.start = false;
 
       window.removeEventListener("keydown",keyfunction);
       showScore.innerHTML = `you loose <br> your score is ${player.score+1}`;
       showScore.classList.add("show");
+=======
+      player.start = false
+      showScore.classList.add("show");
+
+      showScore.innerHTML = `you loose <br> your score is ${player.score}`;
+>>>>>>> 2a90ca58a34094eb1d673f0a66e3c52e913a72ea
     }
     if (enemyCar.y >= 875) {
       enemyCar.y -= 900;
@@ -100,6 +132,7 @@ function moveCars(car) {
 // if player is true then start the animations
 function gameplay() {
   if (player.start) {
+<<<<<<< HEAD
     gameroad.classList.add("show")
     moveCars(car); 
     //move the lines
@@ -120,10 +153,18 @@ function gameplay() {
     requestAnimationFrame(gameplay);
     player.score++;
     scoreContainer.innerHTML = `your score : ${player.score}`;
+=======
+    moveCars(car);
+    movelines();
+    player.score++
+    scoreContainer.innerHTML = `your score : ${player.score}`;
+    requestAnimationFrame(gameplay);
+>>>>>>> 2a90ca58a34094eb1d673f0a66e3c52e913a72ea
   }
 }
 
 // startgame game fun will run only if player is true and call the function game play
+<<<<<<< HEAD
 // cif collisio then player will be false so don't call the game play fun
 
 function startgame() {
@@ -140,3 +181,12 @@ function startgame() {
   }
  
 }
+=======
+function startgame() {
+  player.start = true;
+  startbtn.classList.add("hide");
+  gameroad.classList.add("show");
+  scoreContainer.classList.add("show");
+  window.requestAnimationFrame(gameplay);
+}
+>>>>>>> 2a90ca58a34094eb1d673f0a66e3c52e913a72ea
