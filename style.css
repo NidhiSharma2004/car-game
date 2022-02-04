@@ -12,6 +12,14 @@
     position: absolute;
     color: wheat;
     z-index: 1;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    bottom: 50%;
+    padding: 2rem 3rem;
+    background: black;
+    font-size: 3rem;
+    cursor: pointer;
+    border-radius: 7px;
 }
 .gameroad{
     position: relative;
@@ -24,9 +32,6 @@
 }
 .hide{
     display: none;
-}
-.show{
-    display: block; 
 }
 .lines{
     width: 10px;
@@ -61,4 +66,31 @@
     margin-left: -7px;
     width: 134%;
     height: 100%;
+}
+/* score */
+.scoreContainer{
+    border: 2px solid wheat;
+    position: absolute;
+    bottom: 73%;
+    font-size: 2rem;
+    color: wheat;
+    padding: 0.6rem;
+    display: none;
+}
+/* show score div */
+.showScore{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    top: 40%;
+    font-size: 3rem;
+    padding: 1rem 3rem;
+    background: black;
+    color: wheat;
+    cursor: pointer;
+    z-index: 3;
+    display: none;
+}
+.show{
+    display: block; 
 }
