@@ -1,118 +1,134 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-.container{
-    position: relative;
-    background-color: rgb(6, 77, 6);
-    width: 100%;
-    height: 100vh;
+.container {
+  position: relative;
+  background: rgb(8, 19, 65);
+  background: linear-gradient(
+    180deg,
+    rgba(8, 19, 65, 1) 35%,
+    rgba(21, 37, 48, 1) 72%,
+    rgba(5, 0, 1, 1) 100%
+  );
+  width: 100%;
+  height: 100vh;
 }
-.startbtn{
-    position: absolute;
-    color: wheat;
-    z-index: 1;
-    left: 50%;
-    transform: translate(-50%, 0px);
-    bottom: 50%;
-    padding: 2rem 3rem;
-    background: black;
-    font-size: 3rem;
-    cursor: pointer;
-    border-radius: 7px;
+.blackBackGround {
+  background: linear-gradient(
+    180deg,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(35, 36, 41, 1) 0%,
+    rgba(5, 0, 1, 1) 100%
+  );
 }
-.gameroad{
-    position: relative;
-    width: 500px;
-    background-color: rgb(22, 25, 34);
-    height: 830px;
-    left: 35%;
-    display: none;
-    overflow: hidden;
+.startbtn {
+  position: absolute;
+  color: wheat;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, 0px);
+  bottom: 50%;
+  padding: 2rem 3rem;
+  background: black;
+  font-size: 3rem;
+  cursor: pointer;
+  border-radius: 7px;
 }
-.hide{
-    display: none;
+.gameroad {
+  position: relative;
+  width: 500px;
+  background-color: rgb(22, 25, 34);
+  height: 830px;
+  left: 35%;
+  display: none;
+  overflow: hidden;
 }
-.lines{
-    width: 10px;
-    height: 96px;
-    background-color: white;
-    position: absolute;
-    left: 47%;
+.hide {
+  display: none;
 }
-.car{
-    width: 61px;
-    height: 97px;
-    position: absolute;
-    bottom: 0%;
-    left: 0%;
-    text-align: center;
-    z-index: 1;
-    border-radius: 14px;
+.lines {
+  width: 10px;
+  height: 96px;
+  background-color: white;
+  position: absolute;
+  left: 47%;
 }
-.car img{
-    width: 177%;
-    height: 100%;
-    margin-left: -22px;
+.car {
+  width: 61px;
+  height: 97px;
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  text-align: center;
+  z-index: 1;
+  border-radius: 14px;
 }
-.enemyCars{
-    padding: -5px;
-    width: 53px;
-    height: 105px;
-    position: absolute;
-    bottom: 0%;
-    left: 23%;
-    text-align: center;
-    z-index: 1;
-    border-radius: 14px;
+.car img {
+  width: 177%;
+  height: 100%;
+  margin-left: -22px;
 }
-.enemyCars img{
-    margin-left: -21px;
-    width: 180%;
-    height: 100%;
+.enemyCars {
+  padding: -5px;
+  width: 53px;
+  height: 105px;
+  position: absolute;
+  bottom: 0%;
+  left: 23%;
+  text-align: center;
+  z-index: 1;
+  border-radius: 14px;
+}
+.enemyCars img {
+  margin-left: -21px;
+  width: 180%;
+  height: 100%;
 }
 /* score */
-.scoreContainer, .highScore{
-    border: 2px solid wheat;
-    position: absolute;
-    bottom: 73%;
-    font-size: 2rem;
-    color: wheat;
-    padding: 0.6rem;
-    display: none;
+.scoreContainer,
+.highScore {
+  border: 2px solid wheat;
+  position: absolute;
+  bottom: 73%;
+  font-size: 2rem;
+  color: wheat;
+  padding: 0.6rem;
+  display: none;
 }
-.highScore{
-    bottom: 63%;
+.highScore {
+  bottom: 63%;
 }
 
 /* show score div */
-.showScore{
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0px);
-    top: 40%;
-    font-size: 3rem;
-    padding: 1rem 3rem;
-    background: black;
-    color: wheat;
-    cursor: pointer;
-    z-index: 3;
-    display: none;
+.showScore {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0px);
+  top: 40%;
+  font-size: 3rem;
+  padding: 1rem 3rem;
+  background: black;
+  color: wheat;
+  cursor: pointer;
+  z-index: 3;
+  display: none;
 }
-.show{
-    display: block; 
+.show {
+  display: block;
 }
-.flyCar{
-    animation: carFly 2s linear;
-    width: 81px;
+.flyCar {
+  animation: carFly 2s linear;
+  width: 81px;
 }
-@keyframes carFly{
-    0%{
-        z-index: 1;
-    }50%{
-        z-index: 4;
-    }
-    100%{
-        z-index: 4;
-    }
+@keyframes carFly {
+  0% {
+    z-index: 1;
+  }
+  50% {
+    z-index: 4;
+  }
+  100% {
+    z-index: 4;
+  }
 }

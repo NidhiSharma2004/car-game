@@ -1,6 +1,7 @@
 let gameroad = document.querySelector(".gameroad");
 let car = document.querySelector(".car");
 let startbtn = document.querySelector(".startbtn");
+let container = document.querySelector(".container")
 let scoreContainer = document.querySelector(".scoreContainer");
 let showScore = document.querySelector(".showScore");
 let scorevalue = document.querySelector("#scorevalue");
@@ -184,7 +185,8 @@ function startgame() {
   startbtn.classList.add("hide");
   scoreContainer.classList.add("show");
   highScore.classList.add("show");
-  window.addEventListener("keydown", keyfunction);
+  container.classList.add("blackBackGround")
+  // window.addEventListener("keydown", keyfunction);
   setScore();
   window.requestAnimationFrame(gameplay);
 }
