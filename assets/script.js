@@ -32,7 +32,12 @@ for (x = 0; x < 6; x++) {
   roadlines.style.top = roadlines.y + "px";
   gameroad.appendChild(roadlines);
 }
+// move tree
 
+let treeArr = ["./assets/images/tree1.png","./assets/images/tree1.png","./assets/images/tree1.png"]
+for(x=0; x<treeArr.length; x++){
+
+}
 let enemyCarArr = ["./assets/images/car1.png", "./assets/images/car3.png", "./assets/images/car4.png"];
 // enemy cars
 for (x = 0; x < enemyCarArr.length; x++) {
@@ -53,6 +58,7 @@ for (x = 0; x < enemyCarArr.length; x++) {
 function keyfunction(e) {
   e.preventDefault();
   keys[e.key] = true;
+ 
   let carposition = car.getBoundingClientRect();
   if (keys[5]) {
     let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
@@ -74,8 +80,6 @@ function keyfunction(e) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     if (carBottom < 700) {
       car.style.bottom = carBottom + 10 + "px";
-      car.style.zIndex = 1;
-      carZindex = car.style.zIndex;
     }
   }
   if (keys.ArrowDown) {
@@ -83,28 +87,20 @@ function keyfunction(e) {
     console.log(carBottom);
     if (carBottom > 100) {
       car.style.bottom = carBottom - 10 + "px";
-      car.style.zIndex = 1;
-      carZindex = car.style.zIndex;
     }
   }
   if (keys.ArrowRight) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft < 450) {
       car.style.left = carleft + 10 + "px";
-      car.style.zIndex = 1;
-      carZindex = car.style.zIndex;
     }
   }
   if (keys.ArrowLeft) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft > 0) {
       car.style.left = carleft - 10 + "px";
-      car.style.zIndex = 1;
-      carZindex = car.style.zIndex;
     }
   }
-
-  // console.log(carZindex)
 }
 
 function keyUpfunction(e) {
@@ -181,12 +177,14 @@ function gameplay() {
 
 function startgame() {
   player.start = true;
+  car.style.zIndex = 1;
+  carZindex = car.style.zIndex;
   gameroad.classList.add("show");
   startbtn.classList.add("hide");
   scoreContainer.classList.add("show");
   highScore.classList.add("show");
   container.classList.add("blackBackGround")
-  // window.addEventListener("keydown", keyfunction);
+  window.addEventListener("keydown", keyfunction);
   setScore();
   window.requestAnimationFrame(gameplay);
 }
