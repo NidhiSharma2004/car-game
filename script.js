@@ -4,11 +4,14 @@ let startbtn = document.querySelector(".startbtn");
 let scoreContainer = document.querySelector(".scoreContainer");
 let showScore = document.querySelector(".showScore");
 let scorevalue = document.querySelector("#scorevalue");
-let highScore = document.querySelector(".highScore")
+let highScore = document.querySelector(".highScore");
 let player = { speed: 5, score: 0 };
 let score = 0;
-// on click on startbtn run startgame function
+let carZindex = "";
 
+
+window.addEventListener("keydown",keyfunction)
+// on click on startbtn run startgame function
 startbtn.addEventListener("click", startgame);
 // lines function
 // we want only 6 lines so we run loop for less than 7 times
@@ -24,21 +27,9 @@ for (x = 0; x < 6; x++) {
   gameroad.appendChild(roadlines);
 }
 
-// collision detection
-function iscollide(a, b) {
-  aRect = a.getBoundingClientRect();
-  bRect = b.getBoundingClientRect();
-  return (
-    aRect.top < bRect.bottom &&
-    aRect.bottom > bRect.top &&
-    aRect.right > bRect.left &&
-    aRect.left < bRect.right
-  );
-}
-
 let enemyCarArr = ["images/car1.png", "images/car3.png", "images/car4.png"];
 // enemy cars
-for (x = 0; x < enemyCarArr.length; x++) {
+for (x = 0; x < enemyCarArr.length ; x++) {
   let div = document.createElement("div");
   div.setAttribute("class", "enemyCars");
   let img = document.createElement("img");
@@ -55,32 +46,66 @@ for (x = 0; x < enemyCarArr.length; x++) {
 
 function keyfunction(e) {
   let carposition = car.getBoundingClientRect();
+  if (e.keyCode == 53) {
+    let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
+    if (carsize < 81) {
+      car.style.width = carsize + 20 + "px";
+      car.style.zIndex = 4;
+      carZindex = car.style.zIndex;
+    }else{
+      car.style.width = carsize - 20 + "px";
+      car.style.zIndex = 1;
+      
+    }
+  }
   if (e.keyCode == 38) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     if (carBottom < 700) {
       car.style.bottom = carBottom + 10 + "px";
+      car.style.zIndex = 1;
+      carZindex = car.style.zIndex;
     }
+    // console.log(carposition)
   }
   if (e.keyCode == 40) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     if (carBottom > 100) {
       car.style.bottom = carBottom - 10 + "px";
+      car.style.zIndex = 1;
+      carZindex = car.style.zIndex;
     }
   }
   if (e.keyCode == 39) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft < 450) {
       car.style.left = carleft + 10 + "px";
+      car.style.zIndex = 1;
+      carZindex = car.style.zIndex;
     }
   }
   if (e.keyCode == 37) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft > 0) {
       car.style.left = carleft - 10 + "px";
+      car.style.zIndex = 1;
+      carZindex = car.style.zIndex;
     }
   }
-}
 
+  // console.log(carZindex)
+}
+// collision detection
+function iscollide(a, b) {
+  aRect = a.getBoundingClientRect();
+  bRect = b.getBoundingClientRect();
+  return (
+    aRect.top < bRect.bottom &&
+    aRect.bottom > bRect.top &&
+    aRect.right > bRect.left &&
+    aRect.left < bRect.right &&
+    carZindex == 1
+  );
+}
 //move the lines
 //first select all the lines and run for each mthond on lines and added a value
 //and give the direction that is top and also give condition if y axis se ye 875px
@@ -102,6 +127,7 @@ function moveCars(car) {
   let enemyCars = document.querySelectorAll(".enemyCars");
   enemyCars.forEach(function (enemyCar) {
     if (iscollide(car, enemyCar)) {
+      console.log("true");
       player.start = false;
       showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
       scorevalue.value = score + 1;
@@ -128,7 +154,6 @@ function gameplay() {
     moveCars(car);
     movelines();
     requestAnimationFrame(gameplay);
-    // player.score++;
     score++;
     scoreContainer.innerHTML = `your score : ${score}`;
   }
@@ -142,24 +167,30 @@ function startgame() {
   gameroad.classList.add("show");
   startbtn.classList.add("hide");
   scoreContainer.classList.add("show");
-  highScore.classList.add("show")
+  highScore.classList.add("show");
   window.addEventListener("keydown", keyfunction);
+  setScore();
   window.requestAnimationFrame(gameplay);
 }
 //set score
-let highScoreValue=''
+// score is golbal variable so can be access and call the function at the time of colllson
+// and when game start
+
 function setScore() {
   let scoreinputval = scorevalue.value;
- 
+  let score_arr = [];
   let getScoreValue = localStorage.getItem("setscore");
- if(getScoreValue!=undefined){
-  score_arr = JSON.parse(getScoreValue);
- }
+  if (getScoreValue != undefined) {
+    score_arr = JSON.parse(getScoreValue);
+  }
   score_arr.push(scoreinputval);
   localStorage.setItem("setscore", JSON.stringify(score_arr));
   // console.log(score_arr)
-  let acsarr = score_arr.sort(function(a, b){return a-b});;
- highScoreValue = acsarr.pop()
- 
+  let acsarr = score_arr.sort(function (a, b) {
+    return a - b;
+  });
+  let highScoreValue = "";
+  highScoreValue = acsarr.pop();
+
+  highScore.innerHTML = `high score : ${highScoreValue}`;
 }
-highScore.innerHTML=`high score : ${highScoreValue}`
