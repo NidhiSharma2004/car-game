@@ -32,9 +32,9 @@ for (x = 0; x < 6; x++) {
   gameroad.appendChild(roadlines);
 }
 
-let enemyCarArr = ["images/car1.png", "images/car3.png", "images/car4.png"];
+let enemyCarArr = ["./assets/images/car1.png", "./assets/images/car3.png", "./assets/images/car4.png"];
 // enemy cars
-for (x = 0; x < enemyCarArr.length-2; x++) {
+for (x = 0; x < enemyCarArr.length; x++) {
   let div = document.createElement("div");
   div.setAttribute("class", "enemyCars");
   let img = document.createElement("img");
@@ -51,7 +51,7 @@ for (x = 0; x < enemyCarArr.length-2; x++) {
 
 function keyfunction(e) {
   e.preventDefault();
-  keys[e.key] = true
+  keys[e.key] = true;
   let carposition = car.getBoundingClientRect();
   if (keys[5]) {
     let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
@@ -60,6 +60,14 @@ function keyfunction(e) {
       car.style.zIndex = 4;
       carZindex = car.style.zIndex;
     }
+    setTimeout(() => {
+      let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
+      if (carsize > 61) {
+        car.style.width = carsize - 20 + "px";
+        car.style.zIndex = 1;
+        carZindex = car.style.zIndex;
+      }
+    }, 1000);
   }
   if (keys.ArrowUp) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
@@ -71,7 +79,7 @@ function keyfunction(e) {
   }
   if (keys.ArrowDown) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-    console.log(carBottom)
+    console.log(carBottom);
     if (carBottom > 100) {
       car.style.bottom = carBottom - 10 + "px";
       car.style.zIndex = 1;
@@ -98,9 +106,9 @@ function keyfunction(e) {
   // console.log(carZindex)
 }
 
-function keyUpfunction(e){
-  e.preventDefault()
-keys[e.key]=false;
+function keyUpfunction(e) {
+  e.preventDefault();
+  keys[e.key] = false;
 }
 // collision detection
 function iscollide(a, b) {
