@@ -72,7 +72,7 @@
     height: 100%;
 }
 /* score */
-.scoreContainer{
+.scoreContainer, .highScore{
     border: 2px solid wheat;
     position: absolute;
     bottom: 73%;
@@ -81,6 +81,10 @@
     padding: 0.6rem;
     display: none;
 }
+.highScore{
+    bottom: 63%;
+}
+
 /* show score div */
 .showScore{
     position: absolute;

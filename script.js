@@ -3,8 +3,10 @@ let car = document.querySelector(".car");
 let startbtn = document.querySelector(".startbtn");
 let scoreContainer = document.querySelector(".scoreContainer");
 let showScore = document.querySelector(".showScore");
+let scorevalue = document.querySelector("#scorevalue");
+let highScore = document.querySelector(".highScore")
 let player = { speed: 5, score: 0 };
-let myreq;
+let score = 0;
 // on click on startbtn run startgame function
 
 startbtn.addEventListener("click", startgame);
@@ -13,6 +15,16 @@ startbtn.addEventListener("click", startgame);
 // now we create a div and set the class and give style in css
 // now every div will started from top so 1st div index 0 and top also 0; but jaise
 // index increase hoga ex.1,2,3 vasie hi top se value bhi increase hogi so that overlaping na ho
+
+for (x = 0; x < 6; x++) {
+  let roadlines = document.createElement("roadlines");
+  roadlines.setAttribute("class", "lines");
+  roadlines.y = x * 150;
+  roadlines.style.top = roadlines.y + "px";
+  gameroad.appendChild(roadlines);
+}
+
+// collision detection
 function iscollide(a, b) {
   aRect = a.getBoundingClientRect();
   bRect = b.getBoundingClientRect();
@@ -23,8 +35,6 @@ function iscollide(a, b) {
     aRect.left < bRect.right
   );
 }
-
-
 
 let enemyCarArr = ["images/car1.png", "images/car3.png", "images/car4.png"];
 // enemy cars
@@ -43,21 +53,16 @@ for (x = 0; x < enemyCarArr.length; x++) {
 // we add event lisetener for down the key and specify the that if particular key is pressed then what happen
 // keycode 38 for toparrow and it can find by console e .keycode
 
-
 function keyfunction(e) {
   let carposition = car.getBoundingClientRect();
   if (e.keyCode == 38) {
-    let carBottom = parseInt(
-      getComputedStyle(car).getPropertyValue("bottom")
-    );
+    let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     if (carBottom < 700) {
       car.style.bottom = carBottom + 10 + "px";
     }
   }
   if (e.keyCode == 40) {
-    let carBottom = parseInt(
-      getComputedStyle(car).getPropertyValue("bottom")
-    );
+    let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     if (carBottom > 100) {
       car.style.bottom = carBottom - 10 + "px";
     }
@@ -74,15 +79,8 @@ function keyfunction(e) {
       car.style.left = carleft - 10 + "px";
     }
   }
-};
-
-for (x = 0; x < 6; x++) {
-  let roadlines = document.createElement("roadlines");
-  roadlines.setAttribute("class", "lines");
-  roadlines.y = x * 150;
-  roadlines.style.top = roadlines.y + "px";
-  gameroad.appendChild(roadlines);
 }
+
 //move the lines
 //first select all the lines and run for each mthond on lines and added a value
 //and give the direction that is top and also give condition if y axis se ye 875px
@@ -105,12 +103,15 @@ function moveCars(car) {
   enemyCars.forEach(function (enemyCar) {
     if (iscollide(car, enemyCar)) {
       player.start = false;
-      showScore.innerHTML = `you loose <br> your score is ${player.score+1}`;
+      showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
+      scorevalue.value = score + 1;
+
+      setScore();
       showScore.classList.add("show");
-      window.removeEventListener("keydown", keyfunction)
-      showScore.addEventListener("click",()=>{
+      window.removeEventListener("keydown", keyfunction);
+      showScore.addEventListener("click", () => {
         window.location.reload();
-      })
+      });
     }
     if (enemyCar.y >= 875) {
       enemyCar.y -= 900;
@@ -124,12 +125,12 @@ function moveCars(car) {
 // if player is true then start the animations
 function gameplay() {
   if (player.start) {
-    // gameroad.classList.add("show")
     moveCars(car);
     movelines();
     requestAnimationFrame(gameplay);
-    player.score++;
-    scoreContainer.innerHTML = `your score : ${player.score}`;
+    // player.score++;
+    score++;
+    scoreContainer.innerHTML = `your score : ${score}`;
   }
 }
 
@@ -138,9 +139,27 @@ function gameplay() {
 
 function startgame() {
   player.start = true;
-  gameroad.classList.add("show")
+  gameroad.classList.add("show");
   startbtn.classList.add("hide");
   scoreContainer.classList.add("show");
-  window.addEventListener("keydown", keyfunction)
+  highScore.classList.add("show")
+  window.addEventListener("keydown", keyfunction);
   window.requestAnimationFrame(gameplay);
-}  
+}
+//set score
+let highScoreValue=''
+function setScore() {
+  let scoreinputval = scorevalue.value;
+ 
+  let getScoreValue = localStorage.getItem("setscore");
+ if(getScoreValue!=undefined){
+  score_arr = JSON.parse(getScoreValue);
+ }
+  score_arr.push(scoreinputval);
+  localStorage.setItem("setscore", JSON.stringify(score_arr));
+  // console.log(score_arr)
+  let acsarr = score_arr.sort(function(a, b){return a-b});;
+ highScoreValue = acsarr.pop()
+ 
+}
+highScore.innerHTML=`high score : ${highScoreValue}`
