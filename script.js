@@ -55,7 +55,7 @@ function keyfunction(e) {
     }else{
       car.style.width = carsize - 20 + "px";
       car.style.zIndex = 1;
-      
+      carZindex = car.style.zIndex;
     }
   }
   if (e.keyCode == 38) {
@@ -185,12 +185,10 @@ function setScore() {
   }
   score_arr.push(scoreinputval);
   localStorage.setItem("setscore", JSON.stringify(score_arr));
-  // console.log(score_arr)
   let acsarr = score_arr.sort(function (a, b) {
     return a - b;
   });
   let highScoreValue = "";
   highScoreValue = acsarr.pop();
-
   highScore.innerHTML = `high score : ${highScoreValue}`;
 }
