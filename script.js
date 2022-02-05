@@ -6,11 +6,16 @@ let showScore = document.querySelector(".showScore");
 let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
 let player = { speed: 5, score: 0 };
+let keys = {
+  ArrowUp: false,
+  ArrowDown: false,
+  ArrowLeft: false,
+  ArrowRight: false,
+  5: false,
+};
 let score = 0;
 let carZindex = "";
 
-
-window.addEventListener("keydown",keyfunction)
 // on click on startbtn run startgame function
 startbtn.addEventListener("click", startgame);
 // lines function
@@ -29,7 +34,7 @@ for (x = 0; x < 6; x++) {
 
 let enemyCarArr = ["images/car1.png", "images/car3.png", "images/car4.png"];
 // enemy cars
-for (x = 0; x < enemyCarArr.length ; x++) {
+for (x = 0; x < enemyCarArr.length-2; x++) {
   let div = document.createElement("div");
   div.setAttribute("class", "enemyCars");
   let img = document.createElement("img");
@@ -45,37 +50,35 @@ for (x = 0; x < enemyCarArr.length ; x++) {
 // keycode 38 for toparrow and it can find by console e .keycode
 
 function keyfunction(e) {
+  e.preventDefault();
+  keys[e.key] = true
   let carposition = car.getBoundingClientRect();
-  if (e.keyCode == 53) {
+  if (keys[5]) {
     let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
     if (carsize < 81) {
       car.style.width = carsize + 20 + "px";
       car.style.zIndex = 4;
       carZindex = car.style.zIndex;
-    }else{
-      car.style.width = carsize - 20 + "px";
-      car.style.zIndex = 1;
-      carZindex = car.style.zIndex;
     }
   }
-  if (e.keyCode == 38) {
+  if (keys.ArrowUp) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     if (carBottom < 700) {
       car.style.bottom = carBottom + 10 + "px";
       car.style.zIndex = 1;
       carZindex = car.style.zIndex;
     }
-    // console.log(carposition)
   }
-  if (e.keyCode == 40) {
+  if (keys.ArrowDown) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
+    console.log(carBottom)
     if (carBottom > 100) {
       car.style.bottom = carBottom - 10 + "px";
       car.style.zIndex = 1;
       carZindex = car.style.zIndex;
     }
   }
-  if (e.keyCode == 39) {
+  if (keys.ArrowRight) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft < 450) {
       car.style.left = carleft + 10 + "px";
@@ -83,7 +86,7 @@ function keyfunction(e) {
       carZindex = car.style.zIndex;
     }
   }
-  if (e.keyCode == 37) {
+  if (keys.ArrowLeft) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft > 0) {
       car.style.left = carleft - 10 + "px";
@@ -93,6 +96,11 @@ function keyfunction(e) {
   }
 
   // console.log(carZindex)
+}
+
+function keyUpfunction(e){
+  e.preventDefault()
+keys[e.key]=false;
 }
 // collision detection
 function iscollide(a, b) {
@@ -192,3 +200,6 @@ function setScore() {
   highScoreValue = acsarr.pop();
   highScore.innerHTML = `high score : ${highScoreValue}`;
 }
+
+window.addEventListener("keydown", keyfunction);
+window.addEventListener("keydown", keyUpfunction);
