@@ -6,7 +6,7 @@ let scoreContainer = document.querySelector(".scoreContainer");
 let showScore = document.querySelector(".showScore");
 let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
-let fire = document.querySelector(".fire")
+let fire = document.querySelector(".fire");
 let player = { speed: 5, score: 0 };
 let keys = {
   ArrowUp: false,
@@ -17,10 +17,15 @@ let keys = {
 };
 let score = 0;
 let carZindex = "";
-let audio = new Audio()
-let sound = ["./assets/sounds/carSoundAcc.m4a","./assets/sounds/car crash.mp3","./assets/sounds/carSound.wav",]
+let audio = new Audio();
+let sound = [
+  "assets/sounds/carStart.mp3",
+  "./assets/sounds/carSoundAcc.m4a",
+  "./assets/sounds/car crash.mp3",
+  "./assets/sounds/carSound.wav",
+];
 
-  console.log(sound[0])
+console.log(sound[0]);
 // on click on startbtn run startgame function
 startbtn.addEventListener("click", startgame);
 // lines function
@@ -66,7 +71,7 @@ let enemyCarArr = [
   "./assets/images/car1.png",
   "./assets/images/car3.png",
   "./assets/images/car4.png",
-  "./assets/images/truck.png"
+  "./assets/images/truck.png",
 ];
 // enemy cars
 for (x = 0; x < enemyCarArr.length; x++) {
@@ -87,9 +92,6 @@ for (x = 0; x < enemyCarArr.length; x++) {
 function keyfunction(e) {
   e.preventDefault();
   keys[e.key] = true;
-  // audio.play()
-  
-  
   let carposition = car.getBoundingClientRect();
   if (keys[5]) {
     let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
@@ -97,15 +99,14 @@ function keyfunction(e) {
       car.style.width = carsize + 20 + "px";
       car.style.zIndex = 4;
       carZindex = car.style.zIndex;
-      car.style.marginLeft = -32 + "px"
-
+      car.style.marginLeft = -32 + "px";
     }
     setTimeout(() => {
       let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
       if (carsize > 61) {
         car.style.width = carsize - 20 + "px";
         car.style.zIndex = 1;
-        car.style.marginLeft = -18 + "px"
+        car.style.marginLeft = -18 + "px";
         carZindex = car.style.zIndex;
       }
     }, 1000);
@@ -168,12 +169,12 @@ function movelines() {
   });
 }
 
-// move trees 
+// move trees
 // when we call the function make display block
 function movetrees() {
   let trees = document.querySelectorAll(".trees");
   trees.forEach(function (tree) {
-    tree.style.display = "block"
+    tree.style.display = "block";
     if (tree.y >= 875) {
       tree.y -= 1000;
     }
@@ -184,7 +185,7 @@ function movetrees() {
 function moveRighttrees() {
   let treesRight = document.querySelectorAll(".treesRight");
   treesRight.forEach(function (treeRight) {
-    treeRight.style.display = "block"
+    treeRight.style.display = "block";
     if (treeRight.y >= 875) {
       treeRight.y -= 1000;
     }
@@ -198,18 +199,15 @@ function moveCars(car) {
   let enemyCars = document.querySelectorAll(".enemyCars");
   enemyCars.forEach(function (enemyCar) {
     if (iscollide(car, enemyCar)) {
-      // audio.pause();
-      // audio.src=sound[1]
-      // audio.play()
-      if(audio.src = sound[0]){
+      if ((audio.src = sound[1])) {
         audio.pause();
       }
-      audio.src = sound[1]
+      audio.src = sound[2];
       audio.play();
       player.start = false;
       showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
       scorevalue.value = score + 1;
-      fire.style.display="block"
+      fire.style.display = "block";
       setScore();
       showScore.classList.add("show");
       window.removeEventListener("keydown", keyfunction);
@@ -229,7 +227,7 @@ function moveCars(car) {
 // if player is true then start the animations
 function gameplay() {
   scoreContainer.classList.add("show");
-  highScore.classList.add("show")
+  highScore.classList.add("show");
   if (player.start) {
     moveCars(car);
     movetrees();
@@ -245,20 +243,22 @@ function gameplay() {
 // cif collisio then player will be false so don't call the game play fun
 
 function startgame() {
+
   player.start = true;
   car.style.zIndex = 1;
-  audio.src = sound[0]
-  audio.play()
+  audio.src = sound[0];
+  audio.play();
   carZindex = car.style.zIndex;
   gameroad.classList.add("show");
   startbtn.classList.add("hide");
-  ;
   container.classList.add("blackBackGround");
-  window.addEventListener("keydown", keyfunction);
   setScore();
- setTimeout(() => {
-  window.requestAnimationFrame(gameplay);
- }, 3000);
+  setTimeout(() => {
+    window.addEventListener("keydown", keyfunction);
+    audio.src = sound[1];
+    audio.play()
+    window.requestAnimationFrame(gameplay);
+  }, 3000);
 }
 //set score
 // score is golbal variable so can be access and call the function at the time of colllson
@@ -281,4 +281,4 @@ function setScore() {
   highScore.innerHTML = `high score : ${highScoreValue}`;
 }
 window.addEventListener("keydown", keyfunction);
-window.addEventListener("keydown", keyUpfunction);
+window.addEventListener("keyup", keyUpfunction);
