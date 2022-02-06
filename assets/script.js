@@ -26,6 +26,8 @@ let sound = [
   "./assets/sounds/car crash.mp3",
   "./assets/sounds/carSound.wav",
 ];
+
+// when 1 min passed increase speed of car and enemy car and trees
 setInterval(() => {
   console.log("up")
   player.speed+=2
@@ -114,7 +116,7 @@ function keyfunction(e) {
         car.style.marginLeft = -18 + "px";
         carZindex = car.style.zIndex;
       }
-    }, 1000);
+    }, 900);
   }
   if (keys.ArrowUp) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
@@ -287,5 +289,4 @@ function setScore() {
   highScoreValue = acsarr.pop();
   highScore.innerHTML = `high score : ${highScoreValue}`;
 }
-window.addEventListener("keydown", keyfunction);
 window.addEventListener("keyup", keyUpfunction);
