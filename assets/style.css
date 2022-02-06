@@ -155,7 +155,7 @@
   display: block;
 }
 .trees,
-.treesRight {
+.treesRight, .homeDiv, .righthomeDiv {
   display: none;
   top: 0px;
   position: absolute;
@@ -166,11 +166,20 @@
   transform: translate3d(13px, 11px, -16px);
   overflow: hidden;
 }
+.homeDiv{
+  left: 5%;
+  width: 270px;
+  height: 212px;
+}
+.righthomeDiv{
+  left: 80%;
+  bottom: 20%;
+}
 .treesRight {
   left: 64%;
 }
 .trees img,
-.treesRight img {
+.treesRight img, .homeDiv img, .righthomeDiv img{
   width: 100%;
   height: 100%;
 }

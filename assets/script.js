@@ -48,7 +48,7 @@ for (x = 0; x < 6; x++) {
   roadlines.style.top = roadlines.y + "px";
   gameroad.appendChild(roadlines);
 }
-// move tree
+// create tree
 let treeArr = [
   "./assets/images/tree2.png",
   "./assets/images/tree2.png",
@@ -64,6 +64,7 @@ for (x = 0; x < treeArr.length; x++) {
   divtree.style.top = divtree.y + "px";
   container.appendChild(divtree);
 }
+// create right hand side tree
 for (x = 0; x < treeArr.length; x++) {
   let divRighttree = document.createElement("div");
   divRighttree.setAttribute("class", "treesRight");
@@ -80,7 +81,7 @@ let enemyCarArr = [
   "./assets/images/car4.png",
   "./assets/images/truck.png",
 ];
-// enemy cars
+// create cars
 for (x = 0; x < enemyCarArr.length ; x++) {
   let div = document.createElement("div");
   div.setAttribute("class", "enemyCars");
@@ -90,6 +91,29 @@ for (x = 0; x < enemyCarArr.length ; x++) {
   div.y = x * 190;
   div.style.top = div.y + "px";
   gameroad.appendChild(div);
+}
+// create home
+let homeArr =["./assets/images/home1.png","./assets/images/home2.png"]
+for(x=0;x<homeArr.length;x++){
+  let div = document.createElement("div");
+  div.setAttribute("class","homeDiv");
+  let imgHome = document.createElement("img");
+  imgHome.src = homeArr[x];
+  div.appendChild(imgHome);
+  div.y=x*374
+  div.style.top=div.y+"px" 
+  container.appendChild(div)
+}
+let rightHomeArr = ["./assets/images/home3.png","./assets/images/home4.png"];
+for(x=0;x<rightHomeArr.length;x++){
+  let div = document.createElement("div");
+  div.setAttribute("class","righthomeDiv");
+  let imgHome = document.createElement("img");
+  imgHome.src = rightHomeArr[x];
+  div.appendChild(imgHome);
+  div.y=x*374
+  div.style.top=div.y+"px" 
+  container.appendChild(div)
 }
 //keys
 // firstof all we have to know that ki user window pe konsi ki press kr rha ho or konsi release kr rha hai
@@ -176,29 +200,43 @@ function movelines() {
   });
 }
 
+// move tree and home function
+function moveTreeHome(item){
+  item.style.display = "block";
+  if (item.y >= 875) {
+    item.y -= 1000;
+  }
+  item.y += player.speed;
+  item.style.top = item.y + "px";
+}
 // move trees
 // when we call the function make display block
 function movetrees() {
   let trees = document.querySelectorAll(".trees");
   trees.forEach(function (tree) {
-    tree.style.display = "block";
-    if (tree.y >= 875) {
-      tree.y -= 1000;
-    }
-    tree.y += player.speed;
-    tree.style.top = tree.y + "px";
+    moveTreeHome(tree)
   });
 }
 function moveRighttrees() {
   let treesRight = document.querySelectorAll(".treesRight");
   treesRight.forEach(function (treeRight) {
-    treeRight.style.display = "block";
-    if (treeRight.y >= 875) {
-      treeRight.y -= 1000;
-    }
-    treeRight.y += player.speed;
-    treeRight.style.top = treeRight.y + "px";
+ moveTreeHome(treeRight)
   });
+}
+
+// move homes
+function leftHomeMove(){
+  let homeDiv = document.querySelectorAll(".homeDiv");
+  console.log(homeDiv)
+  homeDiv.forEach(function(letfHome){
+    moveTreeHome(letfHome)
+  })
+}
+function RightHomeTree(){
+  let righthometree = document.querySelectorAll(".righthomeDiv");
+  righthometree.forEach(function(righthome){
+    moveTreeHome(righthome)
+  })
 }
 // move the enemyCars
 // same as line move yha pr hr baar alg alg postion ke liye math functon ke use krenge
@@ -242,6 +280,8 @@ function gameplay() {
     movetrees();
     moveRighttrees();
     movelines();
+    leftHomeMove();
+    RightHomeTree();
     requestAnimationFrame(gameplay);
     score++;
     scoreContainer.innerHTML = `your score : ${score}`;
