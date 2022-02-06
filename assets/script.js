@@ -1,7 +1,7 @@
 let gameroad = document.querySelector(".gameroad");
 let car = document.querySelector(".car");
 let startbtn = document.querySelector(".startbtn");
-let container = document.querySelector(".container")
+let container = document.querySelector(".container");
 let scoreContainer = document.querySelector(".scoreContainer");
 let showScore = document.querySelector(".showScore");
 let scorevalue = document.querySelector("#scorevalue");
@@ -33,12 +33,37 @@ for (x = 0; x < 6; x++) {
   gameroad.appendChild(roadlines);
 }
 // move tree
-
-let treeArr = ["./assets/images/tree1.png","./assets/images/tree1.png","./assets/images/tree1.png"]
-for(x=0; x<treeArr.length; x++){
-
+let treeArr = [
+  "./assets/images/tree2.png",
+  "./assets/images/tree2.png",
+  "./assets/images/tree2.png",
+];
+for (x = 0; x < treeArr.length; x++) {
+  let divtree = document.createElement("div");
+  divtree.setAttribute("class", "trees");
+  let imgtree = document.createElement("img");
+  imgtree.src = treeArr[x];
+  divtree.appendChild(imgtree);
+  divtree.y = x * 350;
+  divtree.style.top = divtree.y + "px";
+  container.appendChild(divtree);
 }
-let enemyCarArr = ["./assets/images/car1.png", "./assets/images/car3.png", "./assets/images/car4.png"];
+for (x = 0; x < treeArr.length; x++) {
+  let divRighttree = document.createElement("div");
+  divRighttree.setAttribute("class", "treesRight");
+  let Rightimgtree = document.createElement("img");
+  Rightimgtree.src = treeArr[x];
+  divRighttree.appendChild(Rightimgtree);
+  divRighttree.y = x * 350;
+  divRighttree.style.top = divRighttree.y + "px";
+  container.appendChild(divRighttree);
+}
+let enemyCarArr = [
+  "./assets/images/car1.png",
+  "./assets/images/car3.png",
+  "./assets/images/car4.png",
+  "./assets/images/truck.png"
+];
 // enemy cars
 for (x = 0; x < enemyCarArr.length; x++) {
   let div = document.createElement("div");
@@ -58,7 +83,7 @@ for (x = 0; x < enemyCarArr.length; x++) {
 function keyfunction(e) {
   e.preventDefault();
   keys[e.key] = true;
- 
+
   let carposition = car.getBoundingClientRect();
   if (keys[5]) {
     let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
@@ -134,13 +159,36 @@ function movelines() {
   });
 }
 
+// move trees 
+// when we call the function make display block
+function movetrees() {
+  let trees = document.querySelectorAll(".trees");
+  trees.forEach(function (tree) {
+    tree.style.display = "block"
+    if (tree.y >= 875) {
+      tree.y -= 1000;
+    }
+    tree.y += player.speed;
+    tree.style.top = tree.y + "px";
+  });
+}
+function moveRighttrees() {
+  let treesRight = document.querySelectorAll(".treesRight");
+  treesRight.forEach(function (treeRight) {
+    treeRight.style.display = "block"
+    if (treeRight.y >= 875) {
+      treeRight.y -= 1000;
+    }
+    treeRight.y += player.speed;
+    treeRight.style.top = treeRight.y + "px";
+  });
+}
 // move the enemyCars
 //same as line move yha pr hr baar alg alg postion ke liye math functon ke use krenge
 function moveCars(car) {
   let enemyCars = document.querySelectorAll(".enemyCars");
   enemyCars.forEach(function (enemyCar) {
     if (iscollide(car, enemyCar)) {
-      console.log("true");
       player.start = false;
       showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
       scorevalue.value = score + 1;
@@ -165,6 +213,8 @@ function moveCars(car) {
 function gameplay() {
   if (player.start) {
     moveCars(car);
+    movetrees();
+    moveRighttrees();
     movelines();
     requestAnimationFrame(gameplay);
     score++;
@@ -183,7 +233,7 @@ function startgame() {
   startbtn.classList.add("hide");
   scoreContainer.classList.add("show");
   highScore.classList.add("show");
-  container.classList.add("blackBackGround")
+  container.classList.add("blackBackGround");
   window.addEventListener("keydown", keyfunction);
   setScore();
   window.requestAnimationFrame(gameplay);
