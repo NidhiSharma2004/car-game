@@ -228,6 +228,8 @@ function moveCars(car) {
 
 // if player is true then start the animations
 function gameplay() {
+  scoreContainer.classList.add("show");
+  highScore.classList.add("show")
   if (player.start) {
     moveCars(car);
     movetrees();
@@ -250,12 +252,13 @@ function startgame() {
   carZindex = car.style.zIndex;
   gameroad.classList.add("show");
   startbtn.classList.add("hide");
-  scoreContainer.classList.add("show");
-  highScore.classList.add("show");
+  ;
   container.classList.add("blackBackGround");
   window.addEventListener("keydown", keyfunction);
   setScore();
+ setTimeout(() => {
   window.requestAnimationFrame(gameplay);
+ }, 3000);
 }
 //set score
 // score is golbal variable so can be access and call the function at the time of colllson
