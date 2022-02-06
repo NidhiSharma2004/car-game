@@ -17,7 +17,10 @@ let keys = {
 };
 let score = 0;
 let carZindex = "";
+let audio = new Audio()
+let sound = ["./assets/sounds/carSoundAcc.m4a","./assets/sounds/car crash.mp3","./assets/sounds/carSound.wav",]
 
+  console.log(sound[0])
 // on click on startbtn run startgame function
 startbtn.addEventListener("click", startgame);
 // lines function
@@ -66,7 +69,7 @@ let enemyCarArr = [
   "./assets/images/truck.png"
 ];
 // enemy cars
-for (x = 0; x < enemyCarArr.length-3; x++) {
+for (x = 0; x < enemyCarArr.length; x++) {
   let div = document.createElement("div");
   div.setAttribute("class", "enemyCars");
   let img = document.createElement("img");
@@ -84,7 +87,9 @@ for (x = 0; x < enemyCarArr.length-3; x++) {
 function keyfunction(e) {
   e.preventDefault();
   keys[e.key] = true;
-
+  // audio.play()
+  
+  
   let carposition = car.getBoundingClientRect();
   if (keys[5]) {
     let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
@@ -93,6 +98,7 @@ function keyfunction(e) {
       car.style.zIndex = 4;
       carZindex = car.style.zIndex;
       car.style.marginLeft = -32 + "px"
+
     }
     setTimeout(() => {
       let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
@@ -187,35 +193,43 @@ function moveRighttrees() {
   });
 }
 // move the enemyCars
-//same as line move yha pr hr baar alg alg postion ke liye math functon ke use krenge
-// function moveCars(car) {
-//   let enemyCars = document.querySelectorAll(".enemyCars");
-//   enemyCars.forEach(function (enemyCar) {
-//     if (iscollide(car, enemyCar)) {
-//       player.start = false;
-//       showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
-//       scorevalue.value = score + 1;
-//       fire.style.display="block"
-//       setScore();
-//       showScore.classList.add("show");
-//       window.removeEventListener("keydown", keyfunction);
-//       showScore.addEventListener("click", () => {
-//         window.location.reload();
-//       });
-//     }
-//     if (enemyCar.y >= 875) {
-//       enemyCar.y -= 900;
-//       enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
-//     }
-//     enemyCar.y += player.speed;
-//     enemyCar.style.top = enemyCar.y + "px";
-//   });
-// }
+// same as line move yha pr hr baar alg alg postion ke liye math functon ke use krenge
+function moveCars(car) {
+  let enemyCars = document.querySelectorAll(".enemyCars");
+  enemyCars.forEach(function (enemyCar) {
+    if (iscollide(car, enemyCar)) {
+      // audio.pause();
+      // audio.src=sound[1]
+      // audio.play()
+      if(audio.src = sound[0]){
+        audio.pause();
+      }
+      audio.src = sound[1]
+      audio.play();
+      player.start = false;
+      showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
+      scorevalue.value = score + 1;
+      fire.style.display="block"
+      setScore();
+      showScore.classList.add("show");
+      window.removeEventListener("keydown", keyfunction);
+      showScore.addEventListener("click", () => {
+        window.location.reload();
+      });
+    }
+    if (enemyCar.y >= 875) {
+      enemyCar.y -= 900;
+      enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
+    }
+    enemyCar.y += player.speed;
+    enemyCar.style.top = enemyCar.y + "px";
+  });
+}
 
 // if player is true then start the animations
 function gameplay() {
   if (player.start) {
-    // moveCars(car);
+    moveCars(car);
     movetrees();
     moveRighttrees();
     movelines();
@@ -231,6 +245,8 @@ function gameplay() {
 function startgame() {
   player.start = true;
   car.style.zIndex = 1;
+  audio.src = sound[0]
+  audio.play()
   carZindex = car.style.zIndex;
   gameroad.classList.add("show");
   startbtn.classList.add("hide");
@@ -261,6 +277,5 @@ function setScore() {
   highScoreValue = acsarr.pop();
   highScore.innerHTML = `high score : ${highScoreValue}`;
 }
-
 window.addEventListener("keydown", keyfunction);
 window.addEventListener("keydown", keyUpfunction);
