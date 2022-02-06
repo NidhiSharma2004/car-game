@@ -131,10 +131,31 @@
   overflow: hidden;
 }
 .treesRight {
-  left: 67%;
+  left: 64%;
 }
 .trees img,
 .treesRight img {
   width: 100%;
   height: 100%;
+}
+.fire{
+  position: absolute;
+  left: 6%;
+  bottom: 27%;
+  width: 48px;
+  border-radius: 11%;
+  height: 72px;
+  animation: flameUp 3s ease-in infinite;
+  display: none;
+}
+@keyframes flameUp {
+  0%{
+    transform: translateX(1px);
+  }
+  20%{
+    transform: translateX(-2px);
+  }
+  30%{
+    transform: translateX(1px);
+  }
 }

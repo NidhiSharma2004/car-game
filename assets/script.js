@@ -6,6 +6,7 @@ let scoreContainer = document.querySelector(".scoreContainer");
 let showScore = document.querySelector(".showScore");
 let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
+let fire = document.querySelector(".fire")
 let player = { speed: 5, score: 0 };
 let keys = {
   ArrowUp: false,
@@ -65,7 +66,7 @@ let enemyCarArr = [
   "./assets/images/truck.png"
 ];
 // enemy cars
-for (x = 0; x < enemyCarArr.length; x++) {
+for (x = 0; x < enemyCarArr.length-3; x++) {
   let div = document.createElement("div");
   div.setAttribute("class", "enemyCars");
   let img = document.createElement("img");
@@ -91,12 +92,14 @@ function keyfunction(e) {
       car.style.width = carsize + 20 + "px";
       car.style.zIndex = 4;
       carZindex = car.style.zIndex;
+      car.style.marginLeft = -32 + "px"
     }
     setTimeout(() => {
       let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
       if (carsize > 61) {
         car.style.width = carsize - 20 + "px";
         car.style.zIndex = 1;
+        car.style.marginLeft = -18 + "px"
         carZindex = car.style.zIndex;
       }
     }, 1000);
@@ -185,34 +188,34 @@ function moveRighttrees() {
 }
 // move the enemyCars
 //same as line move yha pr hr baar alg alg postion ke liye math functon ke use krenge
-function moveCars(car) {
-  let enemyCars = document.querySelectorAll(".enemyCars");
-  enemyCars.forEach(function (enemyCar) {
-    if (iscollide(car, enemyCar)) {
-      player.start = false;
-      showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
-      scorevalue.value = score + 1;
-
-      setScore();
-      showScore.classList.add("show");
-      window.removeEventListener("keydown", keyfunction);
-      showScore.addEventListener("click", () => {
-        window.location.reload();
-      });
-    }
-    if (enemyCar.y >= 875) {
-      enemyCar.y -= 900;
-      enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
-    }
-    enemyCar.y += player.speed;
-    enemyCar.style.top = enemyCar.y + "px";
-  });
-}
+// function moveCars(car) {
+//   let enemyCars = document.querySelectorAll(".enemyCars");
+//   enemyCars.forEach(function (enemyCar) {
+//     if (iscollide(car, enemyCar)) {
+//       player.start = false;
+//       showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
+//       scorevalue.value = score + 1;
+//       fire.style.display="block"
+//       setScore();
+//       showScore.classList.add("show");
+//       window.removeEventListener("keydown", keyfunction);
+//       showScore.addEventListener("click", () => {
+//         window.location.reload();
+//       });
+//     }
+//     if (enemyCar.y >= 875) {
+//       enemyCar.y -= 900;
+//       enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
+//     }
+//     enemyCar.y += player.speed;
+//     enemyCar.style.top = enemyCar.y + "px";
+//   });
+// }
 
 // if player is true then start the animations
 function gameplay() {
   if (player.start) {
-    moveCars(car);
+    // moveCars(car);
     movetrees();
     moveRighttrees();
     movelines();
