@@ -7,6 +7,7 @@ let showScore = document.querySelector(".showScore");
 let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
 let fire = document.querySelector(".fire");
+let gameCountDown = document.querySelector(".gameCountDown");
 let player = { speed: 5, score: 0 };
 let keys = {
   ArrowUp: false,
@@ -15,6 +16,7 @@ let keys = {
   ArrowRight: false,
   5: false,
 };
+let carSpeed = {Cspeed:12}
 let score = 0;
 let carZindex = "";
 let audio = new Audio();
@@ -24,8 +26,11 @@ let sound = [
   "./assets/sounds/car crash.mp3",
   "./assets/sounds/carSound.wav",
 ];
-
-console.log(sound[0]);
+setInterval(() => {
+  console.log("up")
+  player.speed+=2
+  carSpeed.Cspeed+=2
+}, 60000);
 // on click on startbtn run startgame function
 startbtn.addEventListener("click", startgame);
 // lines function
@@ -74,7 +79,7 @@ let enemyCarArr = [
   "./assets/images/truck.png",
 ];
 // enemy cars
-for (x = 0; x < enemyCarArr.length; x++) {
+for (x = 0; x < enemyCarArr.length ; x++) {
   let div = document.createElement("div");
   div.setAttribute("class", "enemyCars");
   let img = document.createElement("img");
@@ -101,7 +106,7 @@ function keyfunction(e) {
       carZindex = car.style.zIndex;
       car.style.marginLeft = -32 + "px";
     }
-    setTimeout(() => {
+    setInterval(() => {
       let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
       if (carsize > 61) {
         car.style.width = carsize - 20 + "px";
@@ -114,26 +119,26 @@ function keyfunction(e) {
   if (keys.ArrowUp) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     if (carBottom < 700) {
-      car.style.bottom = carBottom + 10 + "px";
+      car.style.bottom = carBottom + carSpeed.Cspeed + "px";
     }
   }
   if (keys.ArrowDown) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
     console.log(carBottom);
     if (carBottom > 100) {
-      car.style.bottom = carBottom - 10 + "px";
+      car.style.bottom = carBottom -carSpeed.Cspeed  + "px";
     }
   }
   if (keys.ArrowRight) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft < 450) {
-      car.style.left = carleft + 10 + "px";
+      car.style.left = carleft + carSpeed.Cspeed + "px";
     }
   }
   if (keys.ArrowLeft) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
     if (carleft > 0) {
-      car.style.left = carleft - 10 + "px";
+      car.style.left = carleft - carSpeed.Cspeed + "px";
     }
   }
 }
@@ -219,8 +224,10 @@ function moveCars(car) {
       enemyCar.y -= 900;
       enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
     }
+    
     enemyCar.y += player.speed;
     enemyCar.style.top = enemyCar.y + "px";
+    
   });
 }
 
@@ -243,7 +250,7 @@ function gameplay() {
 // cif collisio then player will be false so don't call the game play fun
 
 function startgame() {
-
+  gameCountDown.classList.add("show");
   player.start = true;
   car.style.zIndex = 1;
   audio.src = sound[0];
@@ -256,7 +263,7 @@ function startgame() {
   setTimeout(() => {
     window.addEventListener("keydown", keyfunction);
     audio.src = sound[1];
-    audio.play()
+    audio.play();
     window.requestAnimationFrame(gameplay);
   }, 3000);
 }
