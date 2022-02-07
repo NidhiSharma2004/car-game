@@ -126,21 +126,21 @@ function keyfunction(e) {
   }
   if (keys.ArrowUp) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-   
-    if (carBottom < (gameroadHeight-carheight-40) ) {
+
+    if (carBottom < gameroadHeight - carheight - 40) {
       car.style.bottom = carBottom + carSpeed.Cspeed + "px";
     }
   }
   if (keys.ArrowDown) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-    console.log(carBottom)
+    console.log(carBottom);
     if (carBottom > 48) {
       car.style.bottom = carBottom - carSpeed.Cspeed + "px";
     }
   }
   if (keys.ArrowRight) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
-    if (carleft < (gameroadWidth-carWidth-20)) {
+    if (carleft < gameroadWidth - carWidth - 20) {
       car.style.left = carleft + carSpeed.Cspeed + "px";
     }
   }
@@ -173,43 +173,43 @@ function iscollide(a, b) {
 //and give the direction that is top and also give condition if y axis se ye 875px
 //chla jaye means height 875 ho jaye to isne se -900 kr do taki ye vapis top pr chla jaye
 function createLines(xheight, xheight2, xheight3, xheight4) {
-  function createLineStructure(){
+  function createLineStructure() {
     let roadlines = document.createElement("roadlines");
-      roadlines.setAttribute("class", "lines");
-      roadlines.y = x * 150;
-      roadlines.style.top = roadlines.y + "px";
-      gameroad.appendChild(roadlines);
+    roadlines.setAttribute("class", "lines");
+    roadlines.y = x * 150;
+    roadlines.style.top = roadlines.y + "px";
+    gameroad.appendChild(roadlines);
   }
   if (xheight.matches) {
     for (x = 0; x < 6; x++) {
-      createLineStructure()
+      createLineStructure();
     }
   } else if (xheight2.matches) {
     for (x = 0; x < 8; x++) {
       let roadlines = document.createElement("roadlines");
-      createLineStructure()
+      createLineStructure();
     }
   } else if (xheight3.matches) {
     for (x = 0; x < 11; x++) {
-      createLineStructure()
+      createLineStructure();
     }
   } else if (xheight4.matches) {
     for (x = 0; x < 14; x++) {
-      createLineStructure()
+      createLineStructure();
     }
   }
 }
 function movelines(xheight, xheight2, xheight3, xheight4) {
-    let gameroadHeight = gameroad.getBoundingClientRect().height;
-    let lines = document.querySelectorAll(".lines");
-    lines.forEach(function (line) {
-      if (line.y >= gameroadHeight) {
-        line.y -= gameroadHeight + 270;
-      }
-      line.y += player.speed;
-      line.style.top = line.y + "px";
-    });
-  }
+  let gameroadHeight = gameroad.getBoundingClientRect().height;
+  let lines = document.querySelectorAll(".lines");
+  lines.forEach(function (line) {
+    if (line.y >= gameroadHeight) {
+      line.y -= gameroadHeight + 270;
+    }
+    line.y += player.speed;
+    line.style.top = line.y + "px";
+  });
+}
 // move tree and home function
 function moveTreeHome(item) {
   item.style.display = "block";
@@ -254,44 +254,41 @@ let enemyCarArr = [
   "./assets/images/car4.png",
   "./assets/images/truck.png",
   "./assets/images/bike1.png",
-  "./assets/images/car5.png"
+  "./assets/images/car5.png",
 ];
 // , xheight3, xheight4
-function createCars(xheight, xheight2,xheight3, xheight4) {
-  function createCarsStructure(){
+function createCars(xheight, xheight2, xheight3, xheight4) {
+  function createCarsStructure(num) {
     let div = document.createElement("div");
     div.setAttribute("class", "enemyCars");
     let img = document.createElement("img");
     img.src = enemyCarArr[x];
     div.appendChild(img);
-    div.y = x * 190;
+    div.y = x * num;
     div.style.top = div.y + "px";
     gameroad.appendChild(div);
   }
   if (xheight.matches) {
-  for (x = 0; x < 3; x++) {
-    createCarsStructure();
-  }
-}
-else if(xheight2.matches){
-  for (x = 0; x < 4; x++) {
-    createCarsStructure()
-  }
-}
-  else if(xheight3.matches){
-    for (x = 0; x < 5; x++) {
-      createCarsStructure()
+    for (x = 0; x < 3; x++) {
+      createCarsStructure(190);
     }
-}
-else if(xheight4.matches){
-  for (x = 0; x < 6; x++) {
-    createCarsStructure()
+  } else if (xheight2.matches) {
+    for (x = 0; x < 4; x++) {
+      createCarsStructure(220);
+    }
+  } else if (xheight3.matches) {
+    for (x = 0; x < 5; x++) {
+      createCarsStructure(250);
+    }
+  } else if (xheight4.matches) {
+    for (x = 0; x < 6; x++) {
+      createCarsStructure(320);
+    }
   }
-}
 }
 // move the enemyCars
 // same as line move yha pr hr baar alg alg postion ke liye math functon ke use krenge
-function moveCars(car,xheight,xheight2,xheight3,xheight4) {
+function moveCars(car, xheight, xheight2, xheight3, xheight4) {
   let enemyCars = document.querySelectorAll(".enemyCars");
   enemyCars.forEach(function (enemyCar) {
     let gameroadHeight = gameroad.getBoundingClientRect().height;
@@ -313,7 +310,7 @@ function moveCars(car,xheight,xheight2,xheight3,xheight4) {
       });
     }
     if (enemyCar.y >= gameroadHeight) {
-      enemyCar.y -= (gameroadHeight+270);
+      enemyCar.y -= gameroadHeight + 270;
       enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
     }
 
@@ -328,7 +325,7 @@ function gameplay() {
   scoreContainer.classList.add("show");
   highScore.classList.add("show");
   if (player.start) {
-    // moveCars(car);
+    moveCars(car);
     movetrees();
     // moveRighttrees();
     movelines(xheight, xheight2, xheight3, xheight4);
@@ -388,6 +385,6 @@ var xheight3 = window.matchMedia("(max-height: 1440px)");
 var xheight4 = window.matchMedia("(max-height: 2160px)");
 
 createLines(xheight, xheight2, xheight3, xheight4);
-createCars(xheight,xheight2,xheight3,xheight4) 
+createCars(xheight, xheight2, xheight3, xheight4);
 window.addEventListener("keyup", keyUpfunction);
 console.log(window.innerHeight);

@@ -213,28 +213,50 @@ height: 100%;
   .gameroad{
     width: 682px;
   }
-} 
-
-@media All and (min-height: 2160px) {
-  .gameroad{
-    width: 682px;
-  }
- .enemyCars {
+  .enemyCars {
     width: 72px;
-    height: 170px;
+    height: 152px;
   }
   .enemyCars img {
-    margin-left: -57px;
-    width: 208%;
+    margin-left: -25px;
+    width: 163%;
     height: 100%;
   }
   .car{
-    width: 83px;
-    height: 170px;
+    width: 62px;
+    height: 126px;
+    left: 8%;
   }
   .car img{
-    margin-left: -57px;
-    width: 208%;
+    margin-left: -25px;
+    width: 163%;
     height: 100%;
+
+  } 
+} 
+
+@media All and (min-height: 1440px) {
+  .gameroad{
+    width: 982px;
+  }
+  .enemyCars {
+    width: 109px;
+    height: 200px;
+  }
+  .enemyCars img {
+    margin-left: -25px;
+    width: 163%;
+    height: 100%;
+  }
+  .car{
+    width: 109px;
+    height: 200px;
+    left: 8%;
+  }
+  .car img{
+    margin-left: -25px;
+    width: 163%;
+    height: 100%;
+
   } 
 }
