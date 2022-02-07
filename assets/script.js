@@ -8,12 +8,6 @@ let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
 let fire = document.querySelector(".fire");
 let gameCountDown = document.querySelector(".gameCountDown");
-// let heightObj = {
-//   height1 :"max-height: 720px",
-//   height2 :"max-height: 1080px",
-//   height3 :"max-height: 1440px",
-//   height4 :"max-height: 2160px"
-// }
 let player = { speed: 5, score: 0 };
 let keys = {
   ArrowUp: false,
@@ -46,14 +40,6 @@ startbtn.addEventListener("click", startgame);
 // now we create a div and set the class and give style in css
 // now every div will started from top so 1st div index 0 and top also 0; but jaise
 // index increase hoga ex.1,2,3 vasie hi top se value bhi increase hogi so that overlaping na ho
-
-// for (x = 0; x < 6; x++) {
-//   let roadlines = document.createElement("roadlines");
-//   roadlines.setAttribute("class", "lines");
-//   roadlines.y = x * 150;
-//   roadlines.style.top = roadlines.y + "px";
-//   gameroad.appendChild(roadlines);
-// }
 
 // create tree
 let treeArr = [
@@ -112,6 +98,11 @@ for (x = 0; x < rightHomeArr.length; x++) {
 // keycode 38 for toparrow and it can find by console e .keycode
 
 function keyfunction(e) {
+  let gameroadHeight = gameroad.getBoundingClientRect().height;
+  let gameroadWidth = gameroad.getBoundingClientRect().width;
+  let carheight = parseInt(getComputedStyle(car).getPropertyValue("height"));
+  let carWidth = parseInt(getComputedStyle(car).getPropertyValue("width"));
+  console.log(gameroadWidth);
   e.preventDefault();
   keys[e.key] = true;
   let carposition = car.getBoundingClientRect();
@@ -123,7 +114,7 @@ function keyfunction(e) {
       carZindex = car.style.zIndex;
       car.style.marginLeft = -32 + "px";
     }
-    setInterval(() => {
+    setTimeout(() => {
       let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
       if (carsize > 61) {
         car.style.width = carsize - 20 + "px";
@@ -135,19 +126,21 @@ function keyfunction(e) {
   }
   if (keys.ArrowUp) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-    if (carBottom < 700) {
+   
+    if (carBottom < (gameroadHeight-carheight-40) ) {
       car.style.bottom = carBottom + carSpeed.Cspeed + "px";
     }
   }
   if (keys.ArrowDown) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-    if (carBottom > 100) {
+    console.log(carBottom)
+    if (carBottom > 48) {
       car.style.bottom = carBottom - carSpeed.Cspeed + "px";
     }
   }
   if (keys.ArrowRight) {
     let carleft = parseInt(getComputedStyle(car).getPropertyValue("left"));
-    if (carleft < 450) {
+    if (carleft < (gameroadWidth-carWidth-20)) {
       car.style.left = carleft + carSpeed.Cspeed + "px";
     }
   }
@@ -361,7 +354,7 @@ function gameplay() {
   scoreContainer.classList.add("show");
   highScore.classList.add("show");
   if (player.start) {
-    moveCars(car);
+    // moveCars(car);
     movetrees();
     // moveRighttrees();
     movelines(xheight, xheight2, xheight3, xheight4);

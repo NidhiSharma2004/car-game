@@ -213,7 +213,13 @@ height: 100%;
   .gameroad{
     width: 682px;
   }
-  .enemyCars {
+} 
+
+@media All and (min-height: 2160px) {
+  .gameroad{
+    width: 682px;
+  }
+ .enemyCars {
     width: 72px;
     height: 170px;
   }
@@ -230,5 +236,5 @@ height: 100%;
     margin-left: -57px;
     width: 208%;
     height: 100%;
-  }
-} 
+  } 
+}
