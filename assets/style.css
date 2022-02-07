@@ -76,7 +76,6 @@
   position: relative;
   width: 500px;
   background-color: rgb(22, 25, 34);
-  /* height: 830px; */
   left: 35%;
   display: none;
   overflow: hidden;
@@ -123,6 +122,8 @@ height: 100%;
   width: 180%;
   height: 100%;
 }
+
+
 /* score */
 .scoreContainer,
 .highScore {
@@ -206,3 +207,28 @@ height: 100%;
     transform: translateX(0.2px);
   }
 }
+
+/* mediaQueries */
+@media All and (min-height: 1080px) {
+  .gameroad{
+    width: 682px;
+  }
+  .enemyCars {
+    width: 72px;
+    height: 170px;
+  }
+  .enemyCars img {
+    margin-left: -57px;
+    width: 208%;
+    height: 100%;
+  }
+  .car{
+    width: 83px;
+    height: 170px;
+  }
+  .car img{
+    margin-left: -57px;
+    width: 208%;
+    height: 100%;
+  }
+} 
