@@ -76,10 +76,11 @@
   position: relative;
   width: 500px;
   background-color: rgb(22, 25, 34);
-  height: 830px;
+  /* height: 830px; */
   left: 35%;
   display: none;
   overflow: hidden;
+height: 100%;
 }
 .hide {
   display: none;

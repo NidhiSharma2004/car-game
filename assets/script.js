@@ -41,7 +41,7 @@ startbtn.addEventListener("click", startgame);
 // now every div will started from top so 1st div index 0 and top also 0; but jaise
 // index increase hoga ex.1,2,3 vasie hi top se value bhi increase hogi so that overlaping na ho
 
-for (x = 0; x < 6; x++) {
+for (x = 0; x < 10; x++) {
   let roadlines = document.createElement("roadlines");
   roadlines.setAttribute("class", "lines");
   roadlines.y = x * 150;
@@ -190,10 +190,11 @@ function iscollide(a, b) {
 //and give the direction that is top and also give condition if y axis se ye 875px
 //chla jaye means height 875 ho jaye to isne se -900 kr do taki ye vapis top pr chla jaye
 function movelines() {
+  let gameroadHeight = gameroad.getBoundingClientRect().height;
   let lines = document.querySelectorAll(".lines");
   lines.forEach(function (line) {
-    if (line.y >= 875) {
-      line.y -= 900;
+    if (line.y >= gameroadHeight) {
+      line.y -= (gameroadHeight+270);
     }
     line.y += player.speed;
     line.style.top = line.y + "px";
@@ -227,7 +228,6 @@ function moveRighttrees() {
 // move homes
 function leftHomeMove(){
   let homeDiv = document.querySelectorAll(".homeDiv");
-  console.log(homeDiv)
   homeDiv.forEach(function(letfHome){
     moveTreeHome(letfHome)
   })
@@ -273,12 +273,15 @@ function moveCars(car) {
 
 // if player is true then start the animations
 function gameplay() {
+  
+let gameroadPositon = gameroad.getBoundingClientRect();
+console.log(gameroadPositon)
   scoreContainer.classList.add("show");
   highScore.classList.add("show");
   if (player.start) {
-    moveCars(car);
+    // moveCars(car);
     movetrees();
-    moveRighttrees();
+    // moveRighttrees();
     movelines();
     leftHomeMove();
     RightHomeTree();
@@ -330,3 +333,4 @@ function setScore() {
   highScore.innerHTML = `high score : ${highScoreValue}`;
 }
 window.addEventListener("keyup", keyUpfunction);
+console.log(window.innerWidth)
