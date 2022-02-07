@@ -8,6 +8,12 @@ let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
 let fire = document.querySelector(".fire");
 let gameCountDown = document.querySelector(".gameCountDown");
+// let heightObj = {
+//   height1 :"max-height: 720px",
+//   height2 :"max-height: 1080px",
+//   height3 :"max-height: 1440px",
+//   height4 :"max-height: 2160px"
+// }
 let player = { speed: 5, score: 0 };
 let keys = {
   ArrowUp: false,
@@ -41,13 +47,16 @@ startbtn.addEventListener("click", startgame);
 // now every div will started from top so 1st div index 0 and top also 0; but jaise
 // index increase hoga ex.1,2,3 vasie hi top se value bhi increase hogi so that overlaping na ho
 
-for (x = 0; x < 10; x++) {
-  let roadlines = document.createElement("roadlines");
-  roadlines.setAttribute("class", "lines");
-  roadlines.y = x * 150;
-  roadlines.style.top = roadlines.y + "px";
-  gameroad.appendChild(roadlines);
-}
+
+// for (x = 0; x < 6; x++) {
+//   let roadlines = document.createElement("roadlines");
+//   roadlines.setAttribute("class", "lines");
+//   roadlines.y = x * 150;
+//   roadlines.style.top = roadlines.y + "px";
+//   gameroad.appendChild(roadlines);
+// }
+
+
 // create tree
 let treeArr = [
   "./assets/images/tree2.png",
@@ -150,7 +159,6 @@ function keyfunction(e) {
   }
   if (keys.ArrowDown) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-    console.log(carBottom);
     if (carBottom > 100) {
       car.style.bottom = carBottom -carSpeed.Cspeed  + "px";
     }
@@ -189,7 +197,57 @@ function iscollide(a, b) {
 //first select all the lines and run for each mthond on lines and added a value
 //and give the direction that is top and also give condition if y axis se ye 875px
 //chla jaye means height 875 ho jaye to isne se -900 kr do taki ye vapis top pr chla jaye
-function movelines() {
+function createLines(xheight,xheight2,xheight3,xheight4) {
+  if(xheight.matches){
+    for (x = 0; x < 6; x++) {
+      let roadlines = document.createElement("roadlines");
+      roadlines.setAttribute("class", "lines");
+      roadlines.y = x * 150;
+      roadlines.style.top = roadlines.y + "px";
+      gameroad.appendChild(roadlines);
+    }
+  }
+  else if(xheight2.matches){
+    for (x = 0; x <8; x++) {
+      let roadlines = document.createElement("roadlines");
+      roadlines.setAttribute("class", "lines");
+      roadlines.y = x * 150;
+      roadlines.style.top = roadlines.y + "px";
+      gameroad.appendChild(roadlines);
+    }
+  }
+  else if(xheight3.matches){
+    for (x = 0; x <11; x++) {
+      let roadlines = document.createElement("roadlines");
+      roadlines.setAttribute("class", "lines");
+      roadlines.y = x * 150;
+      roadlines.style.top = roadlines.y + "px";
+      gameroad.appendChild(roadlines);
+    }
+  }
+  else if(xheight4.matches){
+    for (x = 0; x <14; x++) {
+      let roadlines = document.createElement("roadlines");
+      roadlines.setAttribute("class", "lines");
+      roadlines.y = x * 150;
+      roadlines.style.top = roadlines.y + "px";
+      gameroad.appendChild(roadlines);
+    }
+  }
+}
+function movelines(xheight,xheight2,xheight3,xheight4) {
+  // createLines();
+  if(xheight.matches){
+    let gameroadHeight = gameroad.getBoundingClientRect().height;
+    let lines = document.querySelectorAll(".lines");
+    lines.forEach(function (line) {
+      if (line.y >= gameroadHeight) {
+        line.y -= (gameroadHeight+270);
+      }
+      line.y += player.speed;
+      line.style.top = line.y + "px";
+    });
+  }else if(xheight2.matches ||xheight3.matches ||xheight4.matches){
   let gameroadHeight = gameroad.getBoundingClientRect().height;
   let lines = document.querySelectorAll(".lines");
   lines.forEach(function (line) {
@@ -199,6 +257,18 @@ function movelines() {
     line.y += player.speed;
     line.style.top = line.y + "px";
   });
+}
+// else if(xheight3.matches){
+//   let gameroadHeight = gameroad.getBoundingClientRect().height;
+//   let lines = document.querySelectorAll(".lines");
+//   lines.forEach(function (line) {
+//     if (line.y >= gameroadHeight) {
+//       line.y -= (gameroadHeight+270);
+//     }
+//     line.y += player.speed;
+//     line.style.top = line.y + "px";
+//   });
+// }
 }
 
 // move tree and home function
@@ -271,18 +341,19 @@ function moveCars(car) {
   });
 }
 
+
 // if player is true then start the animations
 function gameplay() {
   
 let gameroadPositon = gameroad.getBoundingClientRect();
-console.log(gameroadPositon)
+// console.log(gameroadPositon)
   scoreContainer.classList.add("show");
   highScore.classList.add("show");
   if (player.start) {
     // moveCars(car);
     movetrees();
     // moveRighttrees();
-    movelines();
+    movelines(xheight,xheight2,xheight3,xheight4)
     leftHomeMove();
     RightHomeTree();
     requestAnimationFrame(gameplay);
@@ -332,5 +403,22 @@ function setScore() {
   highScoreValue = acsarr.pop();
   highScore.innerHTML = `high score : ${highScoreValue}`;
 }
+// describe max width "responsive"
+var xheight = window.matchMedia("(max-height: 720px)");
+var xheight2 = window.matchMedia("(max-height: 1080px)");
+var xheight3 = window.matchMedia("(max-height: 1440px)");
+var xheight4 = window.matchMedia("(max-height: 2160px)");
+
+createLines(xheight,xheight2,xheight3,xheight4);
+movelines(xheight,xheight2,xheight3,xheight4)
+// xheight.addListener(createLines);
+// xheight.addListener(movelines);
+
+
+
+// createLines(xheight2);
+// movelines(xheight2)
+// xheight2.addListener(createLines);
+// xheight2.addListener(movelines);
 window.addEventListener("keyup", keyUpfunction);
-console.log(window.innerWidth)
+console.log(window.innerHeight)
