@@ -8,7 +8,7 @@ let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
 let fire = document.querySelector(".fire");
 let gameCountDown = document.querySelector(".gameCountDown");
-let player = { speed: 5, score: 0 };
+let player = {speed:5, score: 0 };
 let keys = {
   ArrowUp: false,
   ArrowDown: false,
@@ -33,6 +33,13 @@ setInterval(() => {
   player.speed += 2;
   carSpeed.Cspeed += 2;
 }, 60000);
+
+if(window.matchMedia(xheight3)){
+  player.speed+=3
+}
+ if(window.matchMedia(xheight4)){
+     player.speed+=4
+   }
 // on click on startbtn run startgame function
 startbtn.addEventListener("click", startgame);
 // lines function
@@ -256,7 +263,6 @@ let enemyCarArr = [
   "./assets/images/bike1.png",
   "./assets/images/car5.png",
 ];
-// , xheight3, xheight4
 function createCars(xheight, xheight2, xheight3, xheight4) {
   function createCarsStructure(num) {
     let div = document.createElement("div");
@@ -313,8 +319,10 @@ function moveCars(car, xheight, xheight2, xheight3, xheight4) {
       enemyCar.y -= gameroadHeight + 270;
       enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
     }
-
     enemyCar.y += player.speed;
+    // if(xheight2.matches){
+    //   enemyCar.y += playerSpeedXheight2;
+    // }
     enemyCar.style.top = enemyCar.y + "px";
   });
 }
