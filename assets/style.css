@@ -24,7 +24,8 @@
   );
 }
 .startbtn,
-.gameCountDown {
+.gameCountDown,
+.showScore {
   position: absolute;
   color: wheat;
   z-index: 1;
@@ -79,7 +80,7 @@
   left: 35%;
   display: none;
   overflow: hidden;
-height: 100%;
+  height: 100%;
 }
 .hide {
   display: none;
@@ -123,7 +124,6 @@ height: 100%;
   height: 100%;
 }
 
-
 /* score */
 .scoreContainer,
 .highScore {
@@ -141,15 +141,15 @@ height: 100%;
 
 /* show score div */
 .showScore {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0px);
-  top: 40%;
-  font-size: 3rem;
-  padding: 1rem 3rem;
-  background: black;
-  color: wheat;
-  cursor: pointer;
+  /* position: absolute; */
+  /* left: 50%; */
+  /* transform: translate(-50%, 0px); */
+  /* top: 40%; */
+  /* font-size: 3rem; */
+  /* padding: 1rem 3rem; */
+  /* background: black; */
+  /* color: wheat; */
+  /* cursor: pointer; */
   z-index: 3;
   display: none;
 }
@@ -157,31 +157,35 @@ height: 100%;
   display: block;
 }
 .trees,
-.treesRight, .homeDiv, .righthomeDiv {
+.treesRight,
+.homeDiv,
+.righthomeDiv {
   display: none;
   top: 0px;
   position: absolute;
-  width: 217px;
-  height: 165px;
-  left: 21%;
+  width: 149px;
+  height: 112px;
+  left: 23%;
   transform: skewZ(6deg);
   transform: translate3d(13px, 11px, -16px);
   overflow: hidden;
 }
-.homeDiv{
+.homeDiv {
   left: 5%;
-  width: 270px;
-  height: 212px;
+  width: 149px;
+  height: 112px;
 }
-.righthomeDiv{
-  left: 80%;
+.righthomeDiv {
+  left: 86%;
   bottom: 20%;
 }
 .treesRight {
-  left: 64%;
+  left: 68%;
 }
 .trees img,
-.treesRight img, .homeDiv img, .righthomeDiv img{
+.treesRight img,
+.homeDiv img,
+.righthomeDiv img {
   width: 100%;
   height: 100%;
 }
@@ -210,7 +214,13 @@ height: 100%;
 
 /* mediaQueries */
 @media All and (min-height: 1080px) {
-  .gameroad{
+  .startbtn{
+    font-size: 5rem;
+  }
+  .showScore{
+    font-size: 6rem;
+  }
+  .gameroad {
     width: 682px;
   }
   .enemyCars {
@@ -222,45 +232,58 @@ height: 100%;
     width: 163%;
     height: 100%;
   }
-  .car{
+  .car {
     width: 61px;
     height: 126px;
     left: 8%;
   }
-  .car img{
+  .car img {
     margin-left: -25px;
     width: 163%;
     height: 100%;
-
-  } 
+  }
   .trees,
-  .treesRight, .homeDiv, .righthomeDiv {
+  .treesRight,
+  .homeDiv,
+  .righthomeDiv {
     width: 300px;
     height: 221px;
     left: 21%;
     transform: skewZ(6deg);
     transform: translate3d(13px, 11px, -16px);
     overflow: hidden;
-  } 
-  .homeDiv{
+  }
+  .homeDiv {
     left: 5%;
   }
-  .righthomeDiv{
-    left: 80%;
+  .righthomeDiv {
+    left: 82%;
     bottom: 20%;
   }
   .treesRight {
-    left: 64%;
+    left: 74%;
   }
   .trees img,
-  .treesRight img, .homeDiv img, .righthomeDiv img{
+  .treesRight img,
+  .homeDiv img,
+  .righthomeDiv img {
     width: 100%;
     height: 100%;
   }
-} 
+}
 
 @media All and (min-height: 1440px) {
-  .gameroad{
+  .startbtn{
+    padding: 4rem 5rem;
+    font-size: 5rem;
+  }
+  .showScore{
+    font-size: 8rem;
+  }
+  .scoreContainer, .highScore{
+    font-size: 6rem;
+  }
+  .gameroad {
     width: 982px;
   }
   .enemyCars {
@@ -272,39 +295,42 @@ height: 100%;
     width: 163%;
     height: 100%;
   }
-  .car{
-    width: 119px;
+  .car {
+    width: 136px;
     height: 200px;
     left: 8%;
   }
-  .car img{
+  .car img {
     margin-left: -25px;
     width: 163%;
     height: 100%;
-
   }
-  .trees, .treesRight, .homeDiv, .righthomeDiv {
+  .trees,
+  .treesRight,
+  .homeDiv,
+  .righthomeDiv {
     width: 425px;
     height: 323px;
     left: 21%;
     transform: skewZ(6deg);
     transform: translate3d(13px, 11px, -16px);
     overflow: hidden;
-}
-.homeDiv{
-  left: 5%;
-}
-.righthomeDiv{
-  left: 80%;
-  bottom: 20%;
-}
-.treesRight {
-  left: 64%;
-}
-.trees img,
-.treesRight img, .homeDiv img, .righthomeDiv img{
-  width: 100%;
-  height: 100%;
-}
-  
+  }
+  .homeDiv {
+    left: 5%;
+  }
+  .righthomeDiv {
+    left: 80%;
+    bottom: 20%;
+  }
+  .treesRight {
+    left: 64%;
+  }
+  .trees img,
+  .treesRight img,
+  .homeDiv img,
+  .righthomeDiv img {
+    width: 100%;
+    height: 100%;
+  }
 }
