@@ -8,7 +8,7 @@ let scorevalue = document.querySelector("#scorevalue");
 let highScore = document.querySelector(".highScore");
 let fire = document.querySelector(".fire");
 let gameCountDown = document.querySelector(".gameCountDown");
-let player = {speed:5, score: 0 };
+let player = { speed: 5, score: 0 };
 let keys = {
   ArrowUp: false,
   ArrowDown: false,
@@ -19,6 +19,7 @@ let keys = {
 let carSpeed = { Cspeed: 12 };
 let score = 0;
 let carZindex = "";
+let autoLeft = "";
 let audio = new Audio();
 let sound = [
   "assets/sounds/carStart.mp3",
@@ -26,20 +27,22 @@ let sound = [
   "./assets/sounds/car crash.mp3",
   "./assets/sounds/carSound.wav",
 ];
+let windowHeight = window.innerHeight;
+// let autoleft =  Math.ceil(Math.random() * 130) * 3 + "px";
+console.log(windowHeight);
 
-// when 1 min passed increase speed of car and enemy car and trees
-setInterval(() => {
-  console.log("up");
-  player.speed += 2;
-  carSpeed.Cspeed += 2;
-}, 60000);
+if (windowHeight < 1080) {
+  player.speed -= 0;
+  autoleft = Math.ceil(Math.random() * 130) * 3 + "px";
+} else if (windowHeight < 1440 && windowHeight > 1080) {
+  player.speed += 4;
 
-if(window.matchMedia(xheight3)){
-  player.speed+=3
+  autoleft = Math.ceil(Math.random() * 240) * 3 + "px";
+} else if (windowHeight > 1440 && windowHeight < 2160) {
+  player.speed += 7;
+  autoleft = Math.ceil(Math.random() * 260) * 3 + "px";
 }
- if(window.matchMedia(xheight4)){
-     player.speed+=4
-   }
+
 // on click on startbtn run startgame function
 startbtn.addEventListener("click", startgame);
 // lines function
@@ -66,14 +69,22 @@ for (x = 0; x < treeArr.length; x++) {
 }
 // create right hand side tree
 for (x = 0; x < treeArr.length; x++) {
-  let divRighttree = document.createElement("div");
-  divRighttree.setAttribute("class", "treesRight");
-  let Rightimgtree = document.createElement("img");
-  Rightimgtree.src = treeArr[x];
-  divRighttree.appendChild(Rightimgtree);
-  divRighttree.y = x * 350;
-  divRighttree.style.top = divRighttree.y + "px";
-  container.appendChild(divRighttree);
+  function createRightHandTree(marginTop) {
+    let divRighttree = document.createElement("div");
+    divRighttree.setAttribute("class", "treesRight");
+    let Rightimgtree = document.createElement("img");
+    Rightimgtree.src = treeArr[x];
+    divRighttree.appendChild(Rightimgtree);
+    divRighttree.y = x * marginTop;
+    divRighttree.style.top = divRighttree.y + "px";
+    container.appendChild(divRighttree);
+  }
+  if (windowHeight > 1440 && windowHeight < 2160) {
+    createRightHandTree(650)
+  }
+  if(windowHeight<1440){
+    createRightHandTree(350)
+  }
 }
 
 // create home
@@ -109,22 +120,21 @@ function keyfunction(e) {
   let gameroadWidth = gameroad.getBoundingClientRect().width;
   let carheight = parseInt(getComputedStyle(car).getPropertyValue("height"));
   let carWidth = parseInt(getComputedStyle(car).getPropertyValue("width"));
-  console.log(gameroadWidth);
   e.preventDefault();
   keys[e.key] = true;
   let carposition = car.getBoundingClientRect();
   if (keys[5]) {
-    let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
-    if (carsize < 81) {
-      car.style.width = carsize + 20 + "px";
+    // let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
+    if (carWidth < 82) {
+      car.style.width = carWidth + 20 + "px";
       car.style.zIndex = 4;
       carZindex = car.style.zIndex;
       car.style.marginLeft = -32 + "px";
     }
     setTimeout(() => {
-      let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
-      if (carsize > 61) {
-        car.style.width = carsize - 20 + "px";
+      // let carsize = parseInt(getComputedStyle(car).getPropertyValue("width"));
+      if (carWidth > 62) {
+        car.style.width = carWidth - 20 + "px";
         car.style.zIndex = 1;
         car.style.marginLeft = -18 + "px";
         carZindex = car.style.zIndex;
@@ -219,9 +229,10 @@ function movelines(xheight, xheight2, xheight3, xheight4) {
 }
 // move tree and home function
 function moveTreeHome(item) {
+  let gameroadHeight = gameroad.getBoundingClientRect().height;
   item.style.display = "block";
-  if (item.y >= 875) {
-    item.y -= 1000;
+  if (item.y >= gameroadHeight) {
+    item.y -= gameroadHeight + 270;
   }
   item.y += player.speed;
   item.style.top = item.y + "px";
@@ -287,7 +298,7 @@ function createCars(xheight, xheight2, xheight3, xheight4) {
       createCarsStructure(250);
     }
   } else if (xheight4.matches) {
-    for (x = 0; x < 6; x++) {
+    for (x = 0; x < 5; x++) {
       createCarsStructure(320);
     }
   }
@@ -317,12 +328,9 @@ function moveCars(car, xheight, xheight2, xheight3, xheight4) {
     }
     if (enemyCar.y >= gameroadHeight) {
       enemyCar.y -= gameroadHeight + 270;
-      enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
+      enemyCar.style.left = autoleft;
     }
     enemyCar.y += player.speed;
-    // if(xheight2.matches){
-    //   enemyCar.y += playerSpeedXheight2;
-    // }
     enemyCar.style.top = enemyCar.y + "px";
   });
 }
@@ -335,7 +343,7 @@ function gameplay() {
   if (player.start) {
     moveCars(car);
     movetrees();
-    // moveRighttrees();
+    moveRighttrees();
     movelines(xheight, xheight2, xheight3, xheight4);
     leftHomeMove();
     RightHomeTree();
@@ -359,6 +367,7 @@ function startgame() {
   startbtn.classList.add("hide");
   container.classList.add("blackBackGround");
   setScore();
+
   setTimeout(() => {
     window.addEventListener("keydown", keyfunction);
     audio.src = sound[1];
@@ -395,4 +404,3 @@ var xheight4 = window.matchMedia("(max-height: 2160px)");
 createLines(xheight, xheight2, xheight3, xheight4);
 createCars(xheight, xheight2, xheight3, xheight4);
 window.addEventListener("keyup", keyUpfunction);
-console.log(window.innerHeight);
