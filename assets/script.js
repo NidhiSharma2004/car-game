@@ -152,10 +152,19 @@ function keyfunction(e) {
   let carposition = car.getBoundingClientRect();
   console.log(carWidth);
 
+  function IncZindexOfCar() {
+    car.style.zIndex = 4;
+    carZindex = car.style.zIndex;
+    car.style.marginLeft = -32 + "px";
+  }
+  function DecZindexOfCar() {
+    car.style.zIndex = 1;
+    car.style.marginLeft = -18 + "px";
+    carZindex = car.style.zIndex;
+  }
   if (keys[5]) {
     let carWidth = parseInt(getComputedStyle(car).getPropertyValue("width"));
-    if (windowHeight <- 1440) {
-      console.log(carWidth);
+    if (windowHeight < -1440) {
       // first of all here carWidth's value came only once at when we call fun keyup and it's 61 so write cond
       // but here to decrease size of car i don't have value of current size of car becoz width take value at once
       // so i have to assign value of current size of car to variable that is (IncreaseCarSize current value=81) and
@@ -163,43 +172,28 @@ function keyfunction(e) {
       if (carWidth < 81) {
         console.log("statement run  " + carWidth);
         car.style.width = 81 + "px";
-        car.style.zIndex = 4;
-        carZindex = car.style.zIndex;
-        car.style.marginLeft = -32 + "px";
-        console.log("carWidth increase   " + carWidth);
+        IncZindexOfCar();
         IncreaseCarSize = parseInt(car.style.width);
-        console.log("size increase  " + IncreaseCarSize);
       }
 
       setTimeout(() => {
         console.log("setTimeout function run");
         if (IncreaseCarSize == 81) {
           car.style.width = 61 + "px";
-          car.style.zIndex = 1;
-          car.style.marginLeft = -18 + "px";
-          carZindex = car.style.zIndex;
-          console.log("size decrease   " + carWidth);
+          DecZindexOfCar();
         }
       }, 1000);
-    }else{
+    } else {
       if (carWidth < 155) {
-        console.log("statement run  " + carWidth);
         car.style.width = 155 + "px";
-        car.style.zIndex = 4;
-        carZindex = car.style.zIndex;
-        car.style.marginLeft = -32 + "px";
-        console.log("carWidth increase   " + carWidth);
+        IncZindexOfCar();
         NextIncreaseCarSize = parseInt(car.style.width);
       }
 
       setTimeout(() => {
-        console.log("setTimeout function run");
         if (NextIncreaseCarSize == 155) {
           car.style.width = 135 + "px";
-          car.style.zIndex = 1;
-          car.style.marginLeft = -18 + "px";
-          carZindex = car.style.zIndex;
-          console.log("size decrease   " + carWidth);
+          DecZindexOfCar();
         }
       }, 1000);
     }
@@ -376,8 +370,11 @@ function moveCars(car, xheight, xheight2, xheight3, xheight4) {
       if ((audio.src = sound[1])) {
         audio.pause();
       }
+      // audio.muted=false
       audio.src = sound[2];
+      audio.muted=true;
       audio.play();
+      audio.muted=false;
       player.start = false;
       showScore.innerHTML = `you loose <br> your score is ${score + 1}`;
       scorevalue.value = score + 1;
@@ -428,8 +425,10 @@ function startgame() {
   gameCountDown.classList.add("show");
   player.start = true;
   car.style.zIndex = 1;
+  audio.muted = true;
   audio.src = sound[0];
   audio.play();
+  audio.muted=false
   carZindex = car.style.zIndex;
   gameroad.classList.add("show");
   startbtn.classList.add("hide");
@@ -438,8 +437,11 @@ function startgame() {
 
   setTimeout(() => {
     window.addEventListener("keydown", keyfunction);
+    // audio.muted=false
     audio.src = sound[1];
+    audio.muted=true;
     audio.play();
+    audio.muted=false
     window.requestAnimationFrame(gameplay);
   }, 3000);
 }
