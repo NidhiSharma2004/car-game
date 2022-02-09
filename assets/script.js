@@ -9,6 +9,7 @@ let highScore = document.querySelector(".highScore");
 let fire = document.querySelector(".fire");
 let gameCountDown = document.querySelector(".gameCountDown");
 let audio = document.getElementById("audio");
+let tree = document.querySelector(".tree")
 let player = { speed: 5, score: 0 };
 let keys = {
   ArrowUp: false,
@@ -276,7 +277,7 @@ function moveCars(car, xheight, xheight2, xheight3, xheight4) {
     if (enemyCar.y >= gameroadHeight) {
       enemyCar.y -= gameroadHeight + 270;
       if (windowHeight > 1440) {
-        enemyCar.style.left = Math.ceil(Math.random() * 330) * 3 + "px";
+        enemyCar.style.left = Math.ceil(Math.random() * 270) * 3 + "px";
       }
       if (windowHeight < 1440) {
         enemyCar.style.left = Math.ceil(Math.random() * 130) * 3 + "px";
@@ -304,7 +305,6 @@ function iscollide(a, b) {
 // we add event lisetener for down the key and specify the that if particular key is pressed then what happen
 // keycode 38 for toparrow and it can find by console e .keycode
 
-
 function keyfunction(e) {
   let gameroadHeight = gameroad.getBoundingClientRect().height;
   let gameroadWidth = gameroad.getBoundingClientRect().width;
@@ -325,7 +325,7 @@ function keyfunction(e) {
   }
   if (keys[5]) {
     let carWidth = parseInt(getComputedStyle(car).getPropertyValue("width"));
-    if (windowHeight < -1440) {
+    if (windowHeight < 1440) {
       // first of all here carWidth's value came only once at when we call fun keyup and it's 61 so write cond
       // but here to decrease size of car i don't have value of current size of car becoz width take value at once
       // so i have to assign value of current size of car to variable that is (IncreaseCarSize current value=81) and
@@ -333,7 +333,7 @@ function keyfunction(e) {
       if (carWidth < 81) {
         console.log("statement run  " + carWidth);
         car.style.width = 81 + "px";
-        IncZindexOfCar();
+        IncZindexOfCar()
         IncreaseCarSize = parseInt(car.style.width);
       }
 
@@ -361,7 +361,6 @@ function keyfunction(e) {
   }
   if (keys.ArrowUp) {
     let carBottom = parseInt(getComputedStyle(car).getPropertyValue("bottom"));
-
     if (carBottom < gameroadHeight - carheight - 40) {
       car.style.bottom = carBottom + carSpeed.Cspeed + "px";
     }
@@ -422,6 +421,7 @@ function gameplay() {
 // so i have created audio element in html and loop this and when collsion occur i paused the audio of accelerator
 function startgame() {
   gameCountDown.classList.add("show");
+  // tree.classList.add("show")
   player.start = true;
   car.style.zIndex = 1;
   audioElement.muted = true;
